@@ -2,7 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   // === DETECÇÃO DE DISPOSITIVO TOUCH ===
-  // Efeitos de mouse (cursor customizado e botões magnéticos) causam bugs em telas de toque.
   const isTouchDevice =
     "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
@@ -79,8 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-revealed");
-          // Opcional: descomente a linha abaixo para a animação acontecer apenas uma vez
-          // observer.unobserve(entry.target);
         }
       });
     }, revealOptions);
@@ -88,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
     elementsToReveal.forEach((el) => revealObserver.observe(el));
   }
 
-  // Garante que o Hero (banner principal) anime logo ao carregar a página
   setTimeout(() => {
     const hero =
       document.getElementById("hero") || document.querySelector(".page-header");
@@ -108,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Verifica a posição inicial no carregamento
+    handleScroll();
   }
 
   /* ========================================================================
@@ -118,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ".parallax-bg, .parallax-img",
   );
 
-  if (parallaxElements.length > 0) {
+  if (parallaxElements.length > 0 && !isTouchDevice) {
     let requestAnimationFrameId;
     const smoothParallax = () => {
       const scrolled = window.pageYOffset;
@@ -174,12 +170,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mobileMenuOverlay) {
     const openMenu = () => {
       mobileMenuOverlay.classList.add("active");
-      document.body.style.overflow = "hidden"; // Previne scroll de fundo
+      document.body.style.overflow = "hidden";
     };
 
     const closeMenu = () => {
       mobileMenuOverlay.classList.remove("active");
-      document.body.style.overflow = ""; // Retorna o scroll de fundo
+      document.body.style.overflow = "";
     };
 
     if (menuToggleBtn) menuToggleBtn.addEventListener("click", openMenu);
@@ -191,5 +187,36 @@ document.addEventListener("DOMContentLoaded", () => {
         link.style.transitionDelay = `${index * 0.1}s`;
       });
     }
+  }
+
+  /* ========================================================================
+     7. FORM SUBMISSION (VALIDAÇÃO EFEEDBACK)
+     ======================================================================== */
+  const contactForm = document.getElementById("contactForm");
+  if (contactForm) {
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault(); // Previne o reload padrão da página
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+
+      // Feedback visual de envio
+      submitBtn.textContent = "Enviando...";
+      submitBtn.style.opacity = "0.7";
+      submitBtn.style.pointerEvents = "none";
+
+      // Simulação de tempo de servidor (1.5 segundos)
+      setTimeout(() => {
+        alert(
+          "Obrigado! Sua mensagem foi encaminhada ao nosso concierge. Retornaremos em breve.",
+        );
+        contactForm.reset();
+
+        // Retorna o botão ao estado original
+        submitBtn.textContent = originalText;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.pointerEvents = "auto";
+      }, 1500);
+    });
   }
 });

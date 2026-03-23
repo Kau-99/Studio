@@ -13,7 +13,48 @@
 
 <body class="luxury-theme internal-page">
 
-    <main style="padding-top: 180px;">
+    <header id="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo magnetic">Thaisa Vieira.</a>
+            <nav class="nav-desktop">
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Filosofia</a>
+                <a href="aulas.html">Programas</a>
+                <a href="professores.html" class="active">Mestres</a>
+                <a href="espetaculos.html">Espetáculos</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="header-actions">
+                <div class="lang-selector"><a href="#" class="active">PT</a> <span>/</span> <a href="#">EN</a></div>
+                <button class="menu-toggle magnetic" aria-label="Abrir menu">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay">
+            <button class="menu-close magnetic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <nav class="nav-mobile">
+                <a href="index.html" class="mobile-link">Início</a>
+                <a href="sobre.html" class="mobile-link">Filosofia</a>
+                <a href="aulas.html" class="mobile-link">Programas</a>
+                <a href="professores.html" class="mobile-link">Mestres</a>
+                <a href="espetaculos.html" class="mobile-link">Espetáculos</a>
+                <a href="contato.html" class="mobile-link">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="internal-main">
         <section class="container text-center reveal-fade">
             <span class="eyebrow">O Corpo Docente</span>
             <div class="reveal-wrap mt-2">
@@ -68,6 +109,22 @@
             </div>
         </section>
     </main>
+
+    <footer id="main-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="logo display-font">Thaisa Vieira.</span>
+                <p class="mt-2 text-muted">A Poesia do Movimento.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="link-hover">Instagram</a>
+                <a href="#" class="link-hover">Vimeo</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Estúdio de Artes Thaisa Vieira. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

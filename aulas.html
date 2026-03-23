@@ -17,19 +17,31 @@
             <a href="index.html" class="logo magnetic">Thaisa Vieira.</a>
             <nav class="nav-desktop">
                 <a href="index.html">Início</a>
-                <a href="sobre.html" class="active">Filosofia</a>
-                <a href="aulas.html">Programas</a>
+                <a href="sobre.html">Filosofia</a>
+                <a href="aulas.html" class="active">Programas</a>
                 <a href="professores.html">Mestres</a>
                 <a href="espetaculos.html">Espetáculos</a>
                 <a href="contato.html">Contato</a>
             </nav>
             <div class="header-actions">
                 <div class="lang-selector"><a href="#" class="active">PT</a> <span>/</span> <a href="#">EN</a></div>
-                <button class="menu-toggle magnetic">Menu</button>
+                <button class="menu-toggle magnetic" aria-label="Abrir menu">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
             </div>
         </div>
         <div class="mobile-menu-overlay">
-            <button class="menu-close magnetic">Fechar</button>
+            <button class="menu-close magnetic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
             <nav class="nav-mobile">
                 <a href="index.html" class="mobile-link">Início</a>
                 <a href="sobre.html" class="mobile-link">Filosofia</a>
@@ -40,7 +52,8 @@
             </nav>
         </div>
     </header>
-    <main style="padding-top: 180px;">
+
+    <main class="internal-main">
         <section class="container text-center reveal-fade">
             <span class="eyebrow">Currículo Acadêmico</span>
             <div class="reveal-wrap mt-2">
@@ -51,7 +64,7 @@
         <section class="section-padding">
             <div class="container grid-3-cols mt-4">
                 <article class="card reveal-fade">
-                    <div class="ed-img-wrap" style="height: 400px;"><img
+                    <div class="ed-img-wrap"><img
                             src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=600&q=80"
                             alt="Ballet Infantil"></div>
                     <div class="card-content">
@@ -61,7 +74,7 @@
                     </div>
                 </article>
                 <article class="card reveal-fade" style="transition-delay: 0.1s;">
-                    <div class="ed-img-wrap" style="height: 400px;"><img
+                    <div class="ed-img-wrap"><img
                             src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=600&q=80"
                             alt="Formação Juvenil"></div>
                     <div class="card-content">
@@ -71,7 +84,7 @@
                     </div>
                 </article>
                 <article class="card reveal-fade" style="transition-delay: 0.2s;">
-                    <div class="ed-img-wrap" style="height: 400px;"><img
+                    <div class="ed-img-wrap"><img
                             src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=600&q=80"
                             alt="Ballet Adulto"></div>
                     <div class="card-content">
@@ -94,6 +107,22 @@
             </div>
         </section>
     </main>
+
+    <footer id="main-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="logo display-font">Thaisa Vieira.</span>
+                <p class="mt-2 text-muted">A Poesia do Movimento.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="link-hover">Instagram</a>
+                <a href="#" class="link-hover">Vimeo</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Estúdio de Artes Thaisa Vieira. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
