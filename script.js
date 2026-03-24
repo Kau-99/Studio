@@ -61,7 +61,67 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ========================================================================
-     2. INTERSECTION OBSERVER (REVEAL ANIMATIONS)
+     2. PAGE TRANSITIONS (AWWWARDS STYLE)
+     ======================================================================== */
+  const pageTransition = document.querySelector(".page-transition");
+
+  if (pageTransition) {
+    // Reveal a página logo que carregar
+    setTimeout(() => {
+      pageTransition.classList.add("is-loaded");
+    }, 100);
+
+    // Interceptar cliques nos links para fazer a transição de saída
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const target = link.getAttribute("href");
+
+        // Ignorar links inválidos, âncoras (scroll interno) ou aba nova
+        if (
+          !target ||
+          target.startsWith("#") ||
+          target.startsWith("mailto:") ||
+          target.startsWith("tel:") ||
+          link.target === "_blank"
+        ) {
+          return;
+        }
+
+        e.preventDefault();
+
+        // Puxa a cortina preta
+        pageTransition.classList.remove("is-loaded");
+        pageTransition.classList.add("is-leaving");
+
+        // Aguarda 800ms (tempo da animação CSS) e muda de página
+        setTimeout(() => {
+          window.location.href = target;
+        }, 800);
+      });
+    });
+  }
+
+  /* ========================================================================
+     3. LENIS SMOOTH SCROLL
+     ======================================================================== */
+  if (typeof Lenis !== "undefined") {
+    const lenis = new Lenis({
+      duration: 1.2, // O "peso" do scroll
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Curva física perfeita
+      smooth: true,
+      smoothTouch: false, // Desligado no touch para não dar conflito com o dedo
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+
+  /* ========================================================================
+     4. INTERSECTION OBSERVER (REVEAL ANIMATIONS)
      ======================================================================== */
   const elementsToReveal = document.querySelectorAll(
     "#hero, .page-header, .reveal-fade, .reveal-wrap",
@@ -85,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     elementsToReveal.forEach((el) => revealObserver.observe(el));
   }
 
+  // Segurança caso o topo do site não ative sozinho via observer
   setTimeout(() => {
     const hero =
       document.getElementById("hero") || document.querySelector(".page-header");
@@ -92,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 100);
 
   /* ========================================================================
-     3. DYNAMIC SCROLL HEADER
+     5. DYNAMIC SCROLL HEADER
      ======================================================================== */
   const header = document.getElementById("main-header");
   if (header) {
@@ -108,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ========================================================================
-     4. SMOOTH PARALLAX
+     6. SMOOTH PARALLAX IMAGENS
      ======================================================================== */
   const parallaxElements = document.querySelectorAll(
     ".parallax-bg, .parallax-img",
@@ -138,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ========================================================================
-     5. MAGNETIC EFFECT (Somente Desktop)
+     7. MAGNETIC EFFECT (Somente Desktop)
      ======================================================================== */
   const magnets = document.querySelectorAll(".magnetic");
 
@@ -160,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ========================================================================
-     6. MOBILE MENU TOGGLE
+     8. MOBILE MENU TOGGLE
      ======================================================================== */
   const menuToggleBtn = document.querySelector(".menu-toggle");
   const menuCloseBtn = document.querySelector(".menu-close");
@@ -190,29 +251,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ========================================================================
-     7. FORM SUBMISSION (VALIDAÇÃO EFEEDBACK)
+     9. FORM SUBMISSION (VALIDAÇÃO E FEEDBACK)
      ======================================================================== */
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Previne o reload padrão da página
+      e.preventDefault();
 
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
 
-      // Feedback visual de envio
       submitBtn.textContent = "Enviando...";
       submitBtn.style.opacity = "0.7";
       submitBtn.style.pointerEvents = "none";
 
-      // Simulação de tempo de servidor (1.5 segundos)
       setTimeout(() => {
         alert(
           "Obrigado! Sua mensagem foi encaminhada ao nosso concierge. Retornaremos em breve.",
         );
         contactForm.reset();
 
-        // Retorna o botão ao estado original
         submitBtn.textContent = originalText;
         submitBtn.style.opacity = "1";
         submitBtn.style.pointerEvents = "auto";
