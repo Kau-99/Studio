@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato | Thaisa Vieira</title>
-
     <link rel="icon" type="image/svg+xml" href="imagens/favicon.png.svg">
-    <link rel="icon" type="image/png" href="imagens/favicon.png.svg">
-
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -16,7 +13,7 @@
 </head>
 
 <body class="luxury-theme internal-page">
-
+    <div class="noise-overlay"></div>
     <div class="page-transition"></div>
 
     <header id="main-header">
@@ -72,7 +69,7 @@
             <div class="container grid-50-50">
                 <div class="contato-info reveal-fade">
                     <p class="desc-text">Agende uma aula de nivelamento ou tire suas dúvidas sobre nossos programas
-                        acadêmicos. Nossa equipe de concierge responderá com prontidão.</p>
+                        acadêmicos. Nossa equipe de concierge responderá com a maior prontidão e elegância.</p>
                     <div class="mt-4">
                         <p class="desc-text"><strong style="color: var(--color-charcoal);">Sede Brasil:</strong> Rua da
                             Dança, 123 - Nova Iguaçu, RJ</p>
@@ -84,16 +81,17 @@
                 </div>
 
                 <div class="contato-form reveal-fade"
-                    style="background: var(--color-white); padding: 4rem; box-shadow: 0 20px 40px rgba(0,0,0,0.02);">
+                    style="background: var(--color-white); padding: 4rem; box-shadow: 0 20px 40px rgba(0,0,0,0.03); border-radius: 4px;">
                     <form id="contactForm">
                         <div class="input-group">
-                            <input type="text" id="nome" placeholder="Seu Nome Completo" required>
+                            <input type="text" id="nome" placeholder="Seu Nome Completo" required
+                                aria-label="Seu Nome Completo">
                         </div>
                         <div class="input-group mt-2">
-                            <input type="email" id="email" placeholder="E-mail" required>
+                            <input type="email" id="email" placeholder="E-mail" required aria-label="E-mail">
                         </div>
                         <div class="input-group mt-2">
-                            <select id="assunto" required>
+                            <select id="assunto" required aria-label="Motivo do Contato">
                                 <option value="" disabled selected>Motivo do Contato</option>
                                 <option value="audicao">Audição Profissional</option>
                                 <option value="aulas">Aulas Regulares</option>
@@ -101,7 +99,8 @@
                             </select>
                         </div>
                         <div class="input-group mt-2">
-                            <textarea id="mensagem" placeholder="Sua mensagem..." rows="3" required></textarea>
+                            <textarea id="mensagem" placeholder="Sua mensagem..." rows="4" required
+                                aria-label="Sua mensagem"></textarea>
                         </div>
                         <button type="submit" class="btn-primary mt-4 magnetic" style="width: 100%;">Enviar
                             Mensagem</button>
@@ -119,12 +118,12 @@
                     <div class="faq-item">
                         <h4>Vocês aceitam iniciantes adultos?</h4>
                         <p class="desc-text">Sim, possuímos programas desenvolvidos especificamente para adultos que
-                            nunca tiveram contato prévio com a dança clássica.</p>
+                            nunca tiveram contato prévio com a dança clássica, focando na base estrutural.</p>
                     </div>
                     <div class="faq-item">
                         <h4>Como funcionam as audições para a companhia?</h4>
-                        <p class="desc-text">Ocorrem duas vezes ao ano. É exigido nível avançado e trabalho de pontas
-                            impecável. Acompanhe nossas redes para os editais.</p>
+                        <p class="desc-text">Ocorrem duas vezes ao ano, na primavera e no outono. É exigido nível
+                            avançado e trabalho de pontas impecável. Acompanhe nossas redes para os editais.</p>
                     </div>
                 </div>
             </div>
@@ -138,8 +137,8 @@
                 <p class="mt-2 text-muted">A Poesia do Movimento.</p>
             </div>
             <div class="footer-links">
-                <a href="#" class="link-hover">Instagram</a>
-                <a href="#" class="link-hover">Vimeo</a>
+                <a href="#" class="link-hover magnetic">Instagram</a>
+                <a href="#" class="link-hover magnetic">Vimeo</a>
             </div>
         </div>
         <div class="footer-bottom">
