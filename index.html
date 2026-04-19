@@ -5,7 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estúdio de Artes | Thaisa Vieira</title>
+    <meta name="description"
+        content="Estúdio de Ballet e Dança Thaisa Vieira — formação profissional com padrão internacional em Nova Iguaçu/RJ. Baby Class, Formação Profissional e Elegância Adulta.">
+    <meta name="theme-color" content="#D28A97">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Estúdio de Artes | Thaisa Vieira">
+    <meta property="og:description"
+        content="A poesia do movimento. Formação profissional em ballet clássico com padrão internacional.">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Interior do Estúdio de Dança Thaisa Vieira">
     <link rel="icon" type="image/svg+xml" href="imagens/favicon.png.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -13,14 +27,15 @@
 </head>
 
 <body class="luxury-theme">
-    <div class="noise-overlay"></div>
-    <div class="page-transition"></div>
+    <a class="skip-to-content" href="#main-content">Ir ao conteúdo principal</a>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="page-transition" aria-hidden="true"></div>
 
     <header id="main-header">
         <div class="header-container">
-            <a href="index.html" class="logo magnetic" aria-label="Página Inicial">Thaisa Vieira.</a>
-            <nav class="nav-desktop" aria-label="Navegação Principal">
-                <a href="index.html" class="active">Início</a>
+            <a href="index.html" class="logo magnetic" aria-label="Thaisa Vieira — Página Inicial">Thaisa Vieira.</a>
+            <nav class="nav-desktop" aria-label="Navegação principal">
+                <a href="index.html" class="active" aria-current="page">Início</a>
                 <a href="sobre.html">Filosofia</a>
                 <a href="aulas.html">Programas</a>
                 <a href="professores.html">Mestres</a>
@@ -28,13 +43,15 @@
                 <a href="contato.html">Contato</a>
             </nav>
             <div class="header-actions">
-                <div class="lang-selector">
-                    <a href="#" class="active" aria-label="Português">PT</a> <span>/</span> <a href="#"
-                        aria-label="English">EN</a>
+                <div class="lang-selector" aria-label="Seleção de idioma">
+                    <a href="#" class="active" aria-label="Português" hreflang="pt-BR">PT</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="#" aria-label="English" hreflang="en">EN</a>
                 </div>
-                <button class="menu-toggle magnetic" aria-label="Abrir menu mobile">
+                <button class="menu-toggle magnetic" aria-label="Abrir menu de navegação" aria-expanded="false"
+                    aria-controls="mobile-menu">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
+                        stroke-width="1.5" aria-hidden="true" focusable="false">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -42,15 +59,16 @@
                 </button>
             </div>
         </div>
-        <div class="mobile-menu-overlay" aria-hidden="true">
+        <div class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" aria-hidden="true">
             <button class="menu-close magnetic" aria-label="Fechar menu">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true" focusable="false">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <nav class="nav-mobile">
-                <a href="index.html" class="mobile-link">Início</a>
+            <nav class="nav-mobile" aria-label="Navegação mobile">
+                <a href="index.html" class="mobile-link" aria-current="page">Início</a>
                 <a href="sobre.html" class="mobile-link">Filosofia</a>
                 <a href="aulas.html" class="mobile-link">Programas</a>
                 <a href="professores.html" class="mobile-link">Mestres</a>
@@ -60,14 +78,10 @@
         </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="video-wrapper parallax-bg" data-speed="0.4">
-                <video autoplay loop muted playsinline class="hero-video" aria-hidden="true">
-                    <source src="https://cdn.pixabay.com/video/2020/05/24/40061-424424754_large.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="hero-overlay"></div>
+    <main id="main-content">
+        <section id="hero" aria-label="Apresentação do estúdio">
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div class="hero-overlay" aria-hidden="true"></div>
             <div class="hero-content">
                 <div class="reveal-wrap">
                     <h1 class="hero-title reveal-text">A Poesia</h1>
@@ -83,7 +97,7 @@
             </div>
         </section>
 
-        <section class="section-padding bg-alabaster">
+        <section class="section-padding bg-alabaster" aria-label="Manifesto">
             <div class="container text-center statement-text">
                 <span class="eyebrow reveal-fade">Manifesto</span>
                 <div class="mt-2">
@@ -91,7 +105,8 @@
                         <h2 class="section-title reveal-text">Não ensinamos apenas balé.</h2>
                     </div>
                     <div class="reveal-wrap">
-                        <h2 class="section-title reveal-text" style="transition-delay: 0.1s;">Nós forjamos artistas</h2>
+                        <h2 class="section-title reveal-text" style="transition-delay: 0.1s;">Nós forjamos artistas
+                        </h2>
                     </div>
                     <div class="reveal-wrap">
                         <h2 class="section-title italic reveal-text"
@@ -101,7 +116,30 @@
             </div>
         </section>
 
-        <section class="section-padding bg-blush">
+        <section class="section-padding bg-blush" aria-label="Nossos números">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item reveal-fade">
+                        <div class="stat-number" data-target="18" data-suffix="+">18+</div>
+                        <p class="stat-label">Anos de história</p>
+                    </div>
+                    <div class="stat-item reveal-fade" style="transition-delay: 0.1s;">
+                        <div class="stat-number" data-target="350" data-suffix="+">350+</div>
+                        <p class="stat-label">Alunos formados</p>
+                    </div>
+                    <div class="stat-item reveal-fade" style="transition-delay: 0.2s;">
+                        <div class="stat-number" data-target="40" data-suffix="+">40+</div>
+                        <p class="stat-label">Espetáculos realizados</p>
+                    </div>
+                    <div class="stat-item reveal-fade" style="transition-delay: 0.3s;">
+                        <div class="stat-number" data-target="12">12</div>
+                        <p class="stat-label">Premiações internacionais</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-alabaster" aria-label="Nossos espaços">
             <div class="container grid-50-50">
                 <div class="reveal-fade">
                     <span class="eyebrow">Nossos Espaços</span>
@@ -113,27 +151,71 @@
                 </div>
                 <div class="ed-img-wrap reveal-fade parallax-container">
                     <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80"
-                        class="parallax-img" data-speed="0.1" alt="Interior do Estúdio de Dança com barras e espelhos">
+                        class="parallax-img" data-speed="0.1" loading="lazy"
+                        alt="Interior do Estúdio de Dança com barras de ballet e amplos espelhos">
                 </div>
             </div>
         </section>
 
-        <section class="section-padding bg-charcoal text-light">
+        <section class="section-padding bg-blush" aria-label="Depoimentos de alunos">
+            <div class="container">
+                <div class="text-center reveal-fade">
+                    <span class="eyebrow">Vozes do Estúdio</span>
+                    <div class="reveal-wrap mt-2">
+                        <h2 class="section-title reveal-text">O que dizem</h2>
+                    </div>
+                    <div class="reveal-wrap">
+                        <h2 class="section-title italic reveal-text" style="color: var(--color-rose); transition-delay: 0.1s;">nossos alunos.</h2>
+                    </div>
+                </div>
+                <div class="testimonials-grid">
+                    <article class="testimonial-card reveal-fade">
+                        <blockquote>
+                            <p class="testimonial-quote">"O Estúdio Thaisa Vieira transformou não apenas minha técnica, mas minha forma de enxergar a arte e a vida. A dedicação dos mestres é incomparável."</p>
+                            <footer>
+                                <cite class="testimonial-author">Marina Alves</cite>
+                                <p class="testimonial-role">Bailarina Profissional — Turma 2021</p>
+                            </footer>
+                        </blockquote>
+                    </article>
+                    <article class="testimonial-card reveal-fade" style="transition-delay: 0.15s;">
+                        <blockquote>
+                            <p class="testimonial-quote">"Comecei o programa Elegância Adulta sem nenhuma experiência. Hoje danço com confiança e elegância que jamais imaginei possível para mim."</p>
+                            <footer>
+                                <cite class="testimonial-author">Fernanda Costa</cite>
+                                <p class="testimonial-role">Programa Elegância Adulta</p>
+                            </footer>
+                        </blockquote>
+                    </article>
+                    <article class="testimonial-card reveal-fade" style="transition-delay: 0.3s;">
+                        <blockquote>
+                            <p class="testimonial-quote">"Minha filha entrou aos 4 anos no Baby Class. Hoje, com 12, é uma artista completa. Rigor com amor — essa é a essência do estúdio."</p>
+                            <footer>
+                                <cite class="testimonial-author">Patrícia Mendonça</cite>
+                                <p class="testimonial-role">Mãe de aluna — Baby Class</p>
+                            </footer>
+                        </blockquote>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-charcoal text-light" aria-label="Presença global">
             <div class="container grid-50-50 align-center">
                 <div class="global-info reveal-fade">
                     <span class="eyebrow">Presença Global</span>
                     <h2 class="display-title mt-2">Nossos Polos</h2>
-                    <p class="mt-4 desc-text" style="color: rgba(255,255,255,0.7);">Com sedes nas capitais culturais do
-                        mundo, o Estúdio Thaisa Vieira conecta talentos a palcos internacionais. Uma rede de excelência
-                        e intercâmbio artístico sem fronteiras.</p>
-                    <ul class="locations-list mt-4">
+                    <p class="mt-4 desc-text" style="color: rgba(255,255,255,0.7);">Com sedes nas capitais culturais
+                        do mundo, o Estúdio Thaisa Vieira conecta talentos a palcos internacionais. Uma rede de
+                        excelência e intercâmbio artístico sem fronteiras.</p>
+                    <ul class="locations-list mt-4" aria-label="Localizações do estúdio">
                         <li><span>Nova Iguaçu/RJ</span> BR</li>
                     </ul>
                 </div>
                 <div class="global-image reveal-fade">
                     <div class="ed-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1514838637762-5883a9388df6?auto=format&fit=crop&w=800&q=80"
-                            alt="Bailarina no palco sob luz dramática">
+                        <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=800&q=80"
+                            loading="lazy" alt="Bailarina no palco sob luz dramática">
                     </div>
                 </div>
             </div>
@@ -143,22 +225,64 @@
     <footer id="main-footer">
         <div class="container footer-content">
             <div class="footer-brand">
-                <span class="logo display-font">Thaisa Vieira.</span>
+                <span class="logo display-font" aria-label="Thaisa Vieira">Thaisa Vieira.</span>
                 <p class="mt-2 text-muted">A Poesia do Movimento.</p>
             </div>
-            <div class="footer-links">
-                <a href="#" class="link-hover magnetic">Instagram</a>
-                <a href="#" class="link-hover magnetic">Vimeo</a>
-                <a href="#" class="link-hover magnetic">LinkedIn</a>
-            </div>
+            <nav class="footer-links" aria-label="Redes sociais">
+                <a href="#" class="link-hover magnetic" aria-label="Instagram do Estúdio Thaisa Vieira">Instagram</a>
+                <a href="#" class="link-hover magnetic" aria-label="Vimeo do Estúdio Thaisa Vieira">Vimeo</a>
+                <a href="#" class="link-hover magnetic" aria-label="LinkedIn do Estúdio Thaisa Vieira">LinkedIn</a>
+            </nav>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Estúdio de Artes Thaisa Vieira. Todos os direitos reservados.</p>
+            <p>&copy; <span id="footer-year">2026</span> Estúdio de Artes Thaisa Vieira. Todos os direitos
+                reservados.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "PerformingArtsTheater"],
+      "name": "Estúdio de Artes Thaisa Vieira",
+      "description": "Estúdio de Ballet e Dança com formação profissional de padrão internacional em Nova Iguaçu, RJ. Baby Class, Formação Profissional e Elegância Adulta.",
+      "url": "https://thaisavieira.com.br",
+      "telephone": "+55-11-99999-0000",
+      "email": "ola@thaisavieira.com",
+      "image": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua da Dança, 123",
+        "addressLocality": "Nova Iguaçu",
+        "addressRegion": "RJ",
+        "postalCode": "26000-000",
+        "addressCountry": "BR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -22.7560,
+        "longitude": -43.4543
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "21:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "17:00"
+        }
+      ],
+      "priceRange": "$$",
+      "sameAs": []
+    }
+    </script>
 </body>
 
 </html>

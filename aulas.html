@@ -4,8 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programas | Thaisa Vieira</title>
+    <title>Programas de Ballet e Dança | Thaisa Vieira</title>
+    <meta name="description"
+        content="Programas de ballet clássico para todas as idades: Baby Class, Formação Profissional e Elegância Adulta. Private Coaching e Masterclasses no Estúdio Thaisa Vieira.">
+    <meta name="theme-color" content="#D28A97">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Programas de Ballet e Dança | Thaisa Vieira">
+    <meta property="og:description"
+        content="Currículo acadêmico completo em ballet clássico para todas as idades e níveis.">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <link rel="icon" type="image/svg+xml" href="imagens/favicon.png.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -13,25 +26,31 @@
 </head>
 
 <body class="luxury-theme internal-page">
-    <div class="noise-overlay"></div>
-    <div class="page-transition"></div>
+    <a class="skip-to-content" href="#main-content">Ir ao conteúdo principal</a>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="page-transition" aria-hidden="true"></div>
 
     <header id="main-header">
         <div class="header-container">
-            <a href="index.html" class="logo magnetic">Thaisa Vieira.</a>
-            <nav class="nav-desktop">
+            <a href="index.html" class="logo magnetic" aria-label="Thaisa Vieira — Página Inicial">Thaisa Vieira.</a>
+            <nav class="nav-desktop" aria-label="Navegação principal">
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Filosofia</a>
-                <a href="aulas.html" class="active">Programas</a>
+                <a href="aulas.html" class="active" aria-current="page">Programas</a>
                 <a href="professores.html">Mestres</a>
                 <a href="espetaculos.html">Espetáculos</a>
                 <a href="contato.html">Contato</a>
             </nav>
             <div class="header-actions">
-                <div class="lang-selector"><a href="#" class="active">PT</a> <span>/</span> <a href="#">EN</a></div>
-                <button class="menu-toggle magnetic" aria-label="Abrir menu">
+                <div class="lang-selector" aria-label="Seleção de idioma">
+                    <a href="#" class="active" aria-label="Português" hreflang="pt-BR">PT</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="#" aria-label="English" hreflang="en">EN</a>
+                </div>
+                <button class="menu-toggle magnetic" aria-label="Abrir menu de navegação" aria-expanded="false"
+                    aria-controls="mobile-menu">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
+                        stroke-width="1.5" aria-hidden="true" focusable="false">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -39,17 +58,18 @@
                 </button>
             </div>
         </div>
-        <div class="mobile-menu-overlay">
-            <button class="menu-close magnetic">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <div class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" aria-hidden="true">
+            <button class="menu-close magnetic" aria-label="Fechar menu">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true" focusable="false">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <nav class="nav-mobile">
+            <nav class="nav-mobile" aria-label="Navegação mobile">
                 <a href="index.html" class="mobile-link">Início</a>
                 <a href="sobre.html" class="mobile-link">Filosofia</a>
-                <a href="aulas.html" class="mobile-link">Programas</a>
+                <a href="aulas.html" class="mobile-link" aria-current="page">Programas</a>
                 <a href="professores.html" class="mobile-link">Mestres</a>
                 <a href="espetaculos.html" class="mobile-link">Espetáculos</a>
                 <a href="contato.html" class="mobile-link">Contato</a>
@@ -57,30 +77,32 @@
         </div>
     </header>
 
-    <main class="internal-main">
-        <section class="container text-center reveal-fade">
+    <main id="main-content" class="internal-main">
+        <section class="container text-center reveal-fade" aria-label="Título da página">
             <span class="eyebrow">Currículo Acadêmico</span>
             <div class="reveal-wrap mt-2">
                 <h1 class="display-title reveal-text">Nossos Programas</h1>
             </div>
         </section>
 
-        <section class="section-padding">
+        <section class="section-padding" aria-label="Lista de programas">
             <div class="container grid-3-cols mt-4">
                 <article class="card reveal-fade">
-                    <div class="ed-img-wrap"><img
-                            src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=600&q=80"
-                            alt="Ballet Infantil"></div>
+                    <div class="ed-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?auto=format&fit=crop&w=600&q=80"
+                            loading="lazy" alt="Crianças em aula de Baby Class e Pré-Ballet">
+                    </div>
                     <div class="card-content">
-                        <h3>Baby Class & Pre-Ballet</h3>
+                        <h3>Baby Class &amp; Pre-Ballet</h3>
                         <p class="desc-text">Uma introdução poética ao mundo da dança, desenvolvendo musicalidade,
                             postura e a graça inerente a cada criança em um ambiente de amor e disciplina.</p>
                     </div>
                 </article>
                 <article class="card reveal-fade" style="transition-delay: 0.15s;">
-                    <div class="ed-img-wrap"><img
-                            src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=600&q=80"
-                            alt="Formação Juvenil e Profissional"></div>
+                    <div class="ed-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=600&q=80"
+                            loading="lazy" alt="Bailarinas em formação profissional avançada">
+                    </div>
                     <div class="card-content">
                         <h3>Formação Profissional</h3>
                         <p class="desc-text">O núcleo do nosso estúdio. Aprimoramento técnico rigoroso, fortalecimento,
@@ -88,9 +110,10 @@
                     </div>
                 </article>
                 <article class="card reveal-fade" style="transition-delay: 0.3s;">
-                    <div class="ed-img-wrap"><img
-                            src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=600&q=80"
-                            alt="Ballet Adulto"></div>
+                    <div class="ed-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=600&q=80"
+                            loading="lazy" alt="Adulta em aula de ballet clássico">
+                    </div>
                     <div class="card-content">
                         <h3>Elegância Adulta</h3>
                         <p class="desc-text">O balé não tem idade. Aulas pensadas para adultos que buscam o refinamento
@@ -100,8 +123,11 @@
             </div>
         </section>
 
-        <section class="section-padding bg-charcoal text-light">
+        <section class="section-padding bg-charcoal text-light" aria-label="Private Coaching">
             <div class="container text-center reveal-fade">
+                <div>
+                    <span class="badge-urgency">Apenas 3 vagas disponíveis</span>
+                </div>
                 <span class="eyebrow">Masterclasses</span>
                 <h2 class="section-title mt-2">Private Coaching</h2>
                 <p class="desc-text mt-4" style="max-width: 800px; margin: 2rem auto;">Para solistas e bailarinos em
@@ -115,21 +141,23 @@
     <footer id="main-footer">
         <div class="container footer-content">
             <div class="footer-brand">
-                <span class="logo display-font">Thaisa Vieira.</span>
+                <span class="logo display-font" aria-label="Thaisa Vieira">Thaisa Vieira.</span>
                 <p class="mt-2 text-muted">A Poesia do Movimento.</p>
             </div>
-            <div class="footer-links">
-                <a href="#" class="link-hover magnetic">Instagram</a>
-                <a href="#" class="link-hover magnetic">Vimeo</a>
-            </div>
+            <nav class="footer-links" aria-label="Redes sociais">
+                <a href="#" class="link-hover magnetic" aria-label="Instagram do Estúdio Thaisa Vieira">Instagram</a>
+                <a href="#" class="link-hover magnetic" aria-label="Vimeo do Estúdio Thaisa Vieira">Vimeo</a>
+                <a href="#" class="link-hover magnetic" aria-label="LinkedIn do Estúdio Thaisa Vieira">LinkedIn</a>
+            </nav>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Estúdio de Artes Thaisa Vieira. Todos os direitos reservados.</p>
+            <p>&copy; <span id="footer-year">2026</span> Estúdio de Artes Thaisa Vieira. Todos os direitos
+                reservados.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

@@ -1,12 +1,35 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // === DETECÇÃO DE DISPOSITIVO TOUCH ===
+  // Marca o body como pronto para ativar animações CSS
+  document.body.classList.add("js-ready");
+
+  // Ano dinâmico no footer (centralizado, sem duplicação por página)
+  const yearEl = document.getElementById("footer-year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Fallback visual para imagens com erro de carregamento
+  document.querySelectorAll("img").forEach((img) => {
+    const handleError = () => {
+      img.classList.add("img-error");
+      img.closest(".ed-img-wrap")?.classList.add("img-failed");
+    };
+    if (img.complete && img.naturalWidth === 0) {
+      handleError();
+    } else {
+      img.addEventListener("error", handleError, { once: true });
+    }
+  });
+
+  // === DETECÇÃO DE DISPOSITIVO E PREFERÊNCIAS ===
   const isTouchDevice =
     "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
   /* === 1. CUSTOM CURSOR (ROSA/LUXO) === */
-  if (!isTouchDevice) {
+  if (!isTouchDevice && !prefersReducedMotion) {
     const cursorDot = document.createElement("div");
     const cursorOutline = document.createElement("div");
 
@@ -20,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mouseY = 0,
       outlineX = 0,
       outlineY = 0;
+    let cursorRafId = null;
 
     window.addEventListener("mousemove", (e) => {
       mouseX = e.clientX;
@@ -29,18 +53,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const animateCursor = () => {
-      let distX = mouseX - outlineX;
-      let distY = mouseY - outlineY;
+      const distX = mouseX - outlineX;
+      const distY = mouseY - outlineY;
       outlineX += distX * 0.2;
       outlineY += distY * 0.2;
       cursorOutline.style.left = `${outlineX}px`;
       cursorOutline.style.top = `${outlineY}px`;
-      requestAnimationFrame(animateCursor);
+      cursorRafId = requestAnimationFrame(animateCursor);
     };
     animateCursor();
 
+    // Pausar animação quando aba não está visível
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        if (cursorRafId) cancelAnimationFrame(cursorRafId);
+      } else {
+        cursorRafId = requestAnimationFrame(animateCursor);
+      }
+    });
+
     const interactables = document.querySelectorAll(
-      "a, button, .magnetic, input, select, textarea",
+      "a, button, .magnetic, input, select, textarea"
     );
     interactables.forEach((el) => {
       el.addEventListener("mouseenter", () => {
@@ -61,8 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (pageTransition) {
     setTimeout(() => pageTransition.classList.add("is-loaded"), 150);
 
-    const links = document.querySelectorAll("a");
-    links.forEach((link) => {
+    document.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", (e) => {
         const target = link.getAttribute("href");
         if (
@@ -70,100 +102,119 @@ document.addEventListener("DOMContentLoaded", () => {
           target.startsWith("#") ||
           target.startsWith("mailto:") ||
           target.startsWith("tel:") ||
-          link.target === "_blank"
+          link.target === "_blank" ||
+          e.ctrlKey ||
+          e.metaKey ||
+          e.shiftKey
         ) {
           return;
         }
         e.preventDefault();
         pageTransition.classList.remove("is-loaded");
         pageTransition.classList.add("is-leaving");
+        const delay = prefersReducedMotion ? 0 : 800;
         setTimeout(() => {
           window.location.href = target;
-        }, 800);
+        }, delay);
       });
     });
   }
 
   /* === 3. LENIS SMOOTH SCROLL === */
-  if (typeof Lenis !== "undefined") {
+  if (typeof Lenis !== "undefined" && !prefersReducedMotion) {
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
       smoothTouch: false,
     });
+
+    let lenisRafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      lenisRafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    lenisRafId = requestAnimationFrame(raf);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        if (lenisRafId) cancelAnimationFrame(lenisRafId);
+      } else {
+        lenisRafId = requestAnimationFrame(raf);
+      }
+    });
   }
 
-  /* === 4. INTERSECTION OBSERVER (OTIMIZADO) === */
+  /* === 4. INTERSECTION OBSERVER (REVEAL) === */
   const elementsToReveal = document.querySelectorAll(
-    "#hero, .page-header, .reveal-fade, .reveal-wrap",
+    "#hero, .reveal-fade, .reveal-wrap"
   );
+
   if (elementsToReveal.length > 0) {
-    const revealOptions = {
-      root: null,
-      rootMargin: "0px 0px -15% 0px",
-      threshold: 0.1,
-    };
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-revealed");
-          observer.unobserve(entry.target); // Aciona só uma vez!
-        }
-      });
-    }, revealOptions);
-    elementsToReveal.forEach((el) => revealObserver.observe(el));
+    if (prefersReducedMotion) {
+      elementsToReveal.forEach((el) => el.classList.add("is-revealed"));
+    } else {
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { root: null, rootMargin: "0px 0px -15% 0px", threshold: 0.1 }
+      );
+      elementsToReveal.forEach((el) => revealObserver.observe(el));
+    }
   }
+
+  // Acionar hero imediatamente no carregamento
   setTimeout(() => {
-    const hero =
-      document.getElementById("hero") || document.querySelector(".page-header");
-    if (hero) hero.classList.add("is-revealed");
+    const firstReveal = document.getElementById("hero");
+    if (firstReveal) firstReveal.classList.add("is-revealed");
   }, 150);
 
   /* === 5. DYNAMIC SCROLL HEADER === */
   const header = document.getElementById("main-header");
   if (header) {
     const handleScroll = () => {
-      if (window.scrollY > 50) header.classList.add("scrolled");
-      else header.classList.remove("scrolled");
+      header.classList.toggle("scrolled", window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
   }
 
   /* === 6. SMOOTH PARALLAX === */
-  const parallaxElements = document.querySelectorAll(
-    ".parallax-bg, .parallax-img",
-  );
-  if (parallaxElements.length > 0 && !isTouchDevice) {
-    let requestAnimationFrameId;
-    const smoothParallax = () => {
-      const scrolled = window.pageYOffset;
-      parallaxElements.forEach((el) => {
-        const speed = parseFloat(el.getAttribute("data-speed")) || 0.15;
-        el.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
-      });
-      requestAnimationFrameId = null;
-    };
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!requestAnimationFrameId)
-          requestAnimationFrameId =
-            window.requestAnimationFrame(smoothParallax);
-      },
-      { passive: true },
+  if (!prefersReducedMotion && !isTouchDevice) {
+    const parallaxElements = document.querySelectorAll(
+      ".parallax-bg, .parallax-img"
     );
+    if (parallaxElements.length > 0) {
+      let parallaxRafId = null;
+      const smoothParallax = () => {
+        const scrolled = window.pageYOffset;
+        parallaxElements.forEach((el) => {
+          const speed = parseFloat(el.getAttribute("data-speed")) || 0.15;
+          el.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
+        });
+        parallaxRafId = null;
+      };
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!parallaxRafId) {
+            parallaxRafId = requestAnimationFrame(smoothParallax);
+          }
+        },
+        { passive: true }
+      );
+    }
   }
 
   /* === 7. MAGNETIC EFFECT === */
-  const magnets = document.querySelectorAll(".magnetic");
-  if (!isTouchDevice && magnets.length > 0) {
+  if (!isTouchDevice && !prefersReducedMotion) {
+    const magnets = document.querySelectorAll(".magnetic");
     magnets.forEach((magnet) => {
       magnet.addEventListener("mousemove", (e) => {
         const rect = magnet.getBoundingClientRect();
@@ -173,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
         magnet.style.transition = "transform 0.1s linear";
       });
       magnet.addEventListener("mouseleave", () => {
-        magnet.style.transform = `translate(0px, 0px)`;
+        magnet.style.transform = "translate(0px, 0px)";
         magnet.style.transition =
           "transform 0.8s cubic-bezier(0.19, 1, 0.22, 1)";
       });
@@ -189,41 +240,229 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mobileMenuOverlay) {
     const openMenu = () => {
       mobileMenuOverlay.classList.add("active");
+      mobileMenuOverlay.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      if (menuToggleBtn) menuToggleBtn.setAttribute("aria-expanded", "true");
+      if (menuCloseBtn) menuCloseBtn.focus();
     };
+
     const closeMenu = () => {
       mobileMenuOverlay.classList.remove("active");
+      mobileMenuOverlay.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      if (menuToggleBtn) {
+        menuToggleBtn.setAttribute("aria-expanded", "false");
+        menuToggleBtn.focus();
+      }
     };
+
     if (menuToggleBtn) menuToggleBtn.addEventListener("click", openMenu);
     if (menuCloseBtn) menuCloseBtn.addEventListener("click", closeMenu);
-    if (mobileLinks.length > 0) {
-      mobileLinks.forEach((link, index) => {
-        link.addEventListener("click", closeMenu);
+
+    // Fechar com tecla Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileMenuOverlay.classList.contains("active")) {
+        closeMenu();
+      }
+    });
+
+    // Armadilha de foco para acessibilidade (foco nunca sai do menu aberto)
+    document.addEventListener("keydown", (e) => {
+      if (!mobileMenuOverlay.classList.contains("active") || e.key !== "Tab") return;
+      const focusable = Array.from(
+        mobileMenuOverlay.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')
+      ).filter((el) => !el.closest("[hidden]"));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    mobileLinks.forEach((link, index) => {
+      link.addEventListener("click", closeMenu);
+      if (!prefersReducedMotion) {
         link.style.transitionDelay = `${index * 0.08}s`;
-      });
-    }
+      }
+    });
   }
 
   /* === 9. FORM SUBMISSION === */
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
+    const isValidEmail = (email) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
+    const showFormFeedback = (type, message) => {
+      let feedback = contactForm.querySelector(".form-feedback");
+      if (!feedback) {
+        feedback = document.createElement("div");
+        feedback.className = "form-feedback";
+        feedback.setAttribute("role", "alert");
+        feedback.setAttribute("aria-live", "polite");
+        contactForm.appendChild(feedback);
+      }
+      feedback.className = `form-feedback form-feedback--${type}`;
+      feedback.textContent = message;
+    };
+
+    const removeFormFeedback = () => {
+      const feedback = contactForm.querySelector(".form-feedback");
+      if (feedback) feedback.remove();
+    };
+
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      removeFormFeedback();
+
+      const nomeInput = contactForm.querySelector("#nome");
+      const emailInput = contactForm.querySelector("#email");
+      const assuntoInput = contactForm.querySelector("#assunto");
+      const mensagemInput = contactForm.querySelector("#mensagem");
       const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+      if (nomeInput && nomeInput.value.trim().length < 2) {
+        showFormFeedback("error", "Por favor, informe seu nome completo.");
+        nomeInput.focus();
+        return;
+      }
+      if (emailInput && !isValidEmail(emailInput.value)) {
+        showFormFeedback("error", "Por favor, informe um e-mail válido.");
+        emailInput.focus();
+        return;
+      }
+      if (assuntoInput && !assuntoInput.value) {
+        showFormFeedback("error", "Por favor, selecione o motivo do contato.");
+        assuntoInput.focus();
+        return;
+      }
+      if (mensagemInput && mensagemInput.value.trim().length < 10) {
+        showFormFeedback("error", "Por favor, escreva uma mensagem com ao menos 10 caracteres.");
+        mensagemInput.focus();
+        return;
+      }
+
       const originalText = submitBtn.textContent;
       submitBtn.textContent = "Enviando...";
-      submitBtn.style.opacity = "0.7";
-      submitBtn.style.pointerEvents = "none";
-      setTimeout(() => {
-        alert(
-          "Sua solicitação foi encaminhada ao nosso concierge. Retornaremos com elegância e brevidade.",
-        );
-        contactForm.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.style.opacity = "1";
-        submitBtn.style.pointerEvents = "auto";
-      }, 1500);
+      submitBtn.disabled = true;
+
+      // Substitua YOUR_FORM_ID pelo ID gerado em formspree.io após cadastrar o formulário
+      const FORMSPREE_ID = "YOUR_FORM_ID";
+
+      if (FORMSPREE_ID === "YOUR_FORM_ID") {
+        // Modo demonstração enquanto o ID não for configurado
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          contactForm.reset();
+          showFormFeedback("success", "Mensagem enviada com sucesso. Retornaremos em breve.");
+        }, 1500);
+        return;
+      }
+
+      fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: { Accept: "application/json" },
+      })
+        .then((res) => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          if (res.ok) {
+            contactForm.reset();
+            showFormFeedback("success", "Mensagem enviada com sucesso. Retornaremos em breve.");
+          } else {
+            showFormFeedback("error", "Erro ao enviar. Por favor, tente novamente ou entre em contato por telefone.");
+          }
+        })
+        .catch(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          showFormFeedback("error", "Sem conexão. Verifique sua internet e tente novamente.");
+        });
     });
   }
+
+  /* === 10. STATS COUNTER === */
+  const statNumbers = document.querySelectorAll(".stat-number[data-target]");
+  if (statNumbers.length > 0) {
+    const animateCounter = (el) => {
+      const target = parseInt(el.getAttribute("data-target"), 10);
+      const suffix = el.getAttribute("data-suffix") || "";
+      const duration = prefersReducedMotion ? 0 : 2200;
+
+      if (prefersReducedMotion) {
+        el.textContent = target + suffix;
+        return;
+      }
+
+      const startTime = performance.now();
+      const update = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    };
+
+    const counterObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    statNumbers.forEach((el) => counterObserver.observe(el));
+  }
+
+  /* === 11. FAQ ACCORDION === */
+  const faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach((item) => {
+    const btn = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+    if (!btn || !answer) return;
+
+    // Inicializar como fechado
+    answer.style.maxHeight = null;
+    answer.style.opacity = "0";
+    btn.setAttribute("aria-expanded", "false");
+
+    btn.addEventListener("click", () => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+      // Fechar todos os outros itens
+      faqItems.forEach((other) => {
+        if (other === item) return;
+        const otherBtn = other.querySelector(".faq-question");
+        const otherAnswer = other.querySelector(".faq-answer");
+        if (otherBtn && otherAnswer) {
+          otherBtn.setAttribute("aria-expanded", "false");
+          otherAnswer.style.maxHeight = null;
+          otherAnswer.style.opacity = "0";
+        }
+      });
+
+      if (isExpanded) {
+        btn.setAttribute("aria-expanded", "false");
+        answer.style.maxHeight = null;
+        answer.style.opacity = "0";
+      } else {
+        btn.setAttribute("aria-expanded", "true");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        answer.style.opacity = "1";
+      }
+    });
+  });
 });

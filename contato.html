@@ -4,8 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato | Thaisa Vieira</title>
+    <title>Contato e Agendamento | Thaisa Vieira</title>
+    <meta name="description"
+        content="Entre em contato com o Estúdio Thaisa Vieira para agendar uma aula, solicitar audição ou tirar dúvidas sobre nossos programas de ballet clássico em Nova Iguaçu/RJ.">
+    <meta name="theme-color" content="#D28A97">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contato e Agendamento | Thaisa Vieira">
+    <meta property="og:description"
+        content="Fale com nossa equipe de concierge para agendar aulas, audições ou esclarecer dúvidas.">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <link rel="icon" type="image/svg+xml" href="imagens/favicon.png.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -13,25 +26,31 @@
 </head>
 
 <body class="luxury-theme internal-page">
-    <div class="noise-overlay"></div>
-    <div class="page-transition"></div>
+    <a class="skip-to-content" href="#main-content">Ir ao conteúdo principal</a>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="page-transition" aria-hidden="true"></div>
 
     <header id="main-header">
         <div class="header-container">
-            <a href="index.html" class="logo magnetic">Thaisa Vieira.</a>
-            <nav class="nav-desktop">
+            <a href="index.html" class="logo magnetic" aria-label="Thaisa Vieira — Página Inicial">Thaisa Vieira.</a>
+            <nav class="nav-desktop" aria-label="Navegação principal">
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Filosofia</a>
                 <a href="aulas.html">Programas</a>
                 <a href="professores.html">Mestres</a>
                 <a href="espetaculos.html">Espetáculos</a>
-                <a href="contato.html" class="active">Contato</a>
+                <a href="contato.html" class="active" aria-current="page">Contato</a>
             </nav>
             <div class="header-actions">
-                <div class="lang-selector"><a href="#" class="active">PT</a> <span>/</span> <a href="#">EN</a></div>
-                <button class="menu-toggle magnetic" aria-label="Abrir menu">
+                <div class="lang-selector" aria-label="Seleção de idioma">
+                    <a href="#" class="active" aria-label="Português" hreflang="pt-BR">PT</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="#" aria-label="English" hreflang="en">EN</a>
+                </div>
+                <button class="menu-toggle magnetic" aria-label="Abrir menu de navegação" aria-expanded="false"
+                    aria-controls="mobile-menu">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
+                        stroke-width="1.5" aria-hidden="true" focusable="false">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -39,68 +58,86 @@
                 </button>
             </div>
         </div>
-        <div class="mobile-menu-overlay">
-            <button class="menu-close magnetic">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <div class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" aria-hidden="true">
+            <button class="menu-close magnetic" aria-label="Fechar menu">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true" focusable="false">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <nav class="nav-mobile">
+            <nav class="nav-mobile" aria-label="Navegação mobile">
                 <a href="index.html" class="mobile-link">Início</a>
                 <a href="sobre.html" class="mobile-link">Filosofia</a>
                 <a href="aulas.html" class="mobile-link">Programas</a>
                 <a href="professores.html" class="mobile-link">Mestres</a>
                 <a href="espetaculos.html" class="mobile-link">Espetáculos</a>
-                <a href="contato.html" class="mobile-link">Contato</a>
+                <a href="contato.html" class="mobile-link" aria-current="page">Contato</a>
             </nav>
         </div>
     </header>
 
-    <main class="internal-main">
-        <section class="container text-center reveal-fade">
+    <main id="main-content" class="internal-main">
+        <section class="container text-center reveal-fade" aria-label="Título da página">
             <span class="eyebrow">Atendimento Exclusivo</span>
             <div class="reveal-wrap mt-2">
                 <h1 class="display-title reveal-text">Fale Conosco</h1>
             </div>
         </section>
 
-        <section class="section-padding">
+        <section class="section-padding" aria-label="Informações de contato e formulário">
             <div class="container grid-50-50">
                 <div class="contato-info reveal-fade">
                     <p class="desc-text">Agende uma aula de nivelamento ou tire suas dúvidas sobre nossos programas
                         acadêmicos. Nossa equipe de concierge responderá com a maior prontidão e elegância.</p>
-                    <div class="mt-4">
-                        <p class="desc-text"><strong style="color: var(--color-charcoal);">Sede Brasil:</strong> Rua da
-                            Dança, 123 - Nova Iguaçu, RJ</p>
-                        <p class="desc-text"><strong style="color: var(--color-charcoal);">Telefone:</strong> +55 (11)
-                            99999-0000</p>
-                        <p class="desc-text"><strong style="color: var(--color-charcoal);">Concierge:</strong>
-                            ola@thaisavieira.com</p>
-                    </div>
+                    <address class="mt-4" style="font-style: normal;">
+                        <p class="desc-text">
+                            <strong style="color: var(--color-charcoal);">Sede Brasil:</strong>
+                            Rua da Dança, 123 — Nova Iguaçu, RJ
+                        </p>
+                        <p class="desc-text mt-2">
+                            <strong style="color: var(--color-charcoal);">Telefone:</strong>
+                            <a href="tel:+5511999990000" style="color: inherit; text-decoration: none;">+55 (11)
+                                99999-0000</a>
+                        </p>
+                        <p class="desc-text mt-2">
+                            <strong style="color: var(--color-charcoal);">Concierge:</strong>
+                            <a href="mailto:ola@thaisavieira.com"
+                                style="color: inherit; text-decoration: none;">ola@thaisavieira.com</a>
+                        </p>
+                    </address>
                 </div>
 
                 <div class="contato-form reveal-fade"
                     style="background: var(--color-white); padding: 4rem; box-shadow: 0 20px 40px rgba(0,0,0,0.03); border-radius: 4px;">
-                    <form id="contactForm">
+                    <form id="contactForm" novalidate aria-label="Formulário de contato">
                         <div class="input-group">
-                            <input type="text" id="nome" placeholder="Seu Nome Completo" required
-                                aria-label="Seu Nome Completo">
+                            <label for="nome" class="sr-only">Nome completo</label>
+                            <input type="text" id="nome" name="nome" placeholder="Seu Nome Completo" required
+                                autocomplete="name" minlength="2" aria-required="true"
+                                aria-describedby="nome-error">
+                            <span id="nome-error" class="field-error" role="alert" aria-live="polite"></span>
                         </div>
                         <div class="input-group mt-2">
-                            <input type="email" id="email" placeholder="E-mail" required aria-label="E-mail">
+                            <label for="email" class="sr-only">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="E-mail" required
+                                autocomplete="email" aria-required="true" aria-describedby="email-error">
+                            <span id="email-error" class="field-error" role="alert" aria-live="polite"></span>
                         </div>
                         <div class="input-group mt-2">
-                            <select id="assunto" required aria-label="Motivo do Contato">
+                            <label for="assunto" class="sr-only">Motivo do contato</label>
+                            <select id="assunto" name="assunto" required aria-required="true">
                                 <option value="" disabled selected>Motivo do Contato</option>
                                 <option value="audicao">Audição Profissional</option>
                                 <option value="aulas">Aulas Regulares</option>
                                 <option value="espetaculo">Ingressos / Parcerias</option>
+                                <option value="outro">Outro assunto</option>
                             </select>
                         </div>
                         <div class="input-group mt-2">
-                            <textarea id="mensagem" placeholder="Sua mensagem..." rows="4" required
-                                aria-label="Sua mensagem"></textarea>
+                            <label for="mensagem" class="sr-only">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" placeholder="Sua mensagem..." rows="4" required
+                                aria-required="true" minlength="10"></textarea>
                         </div>
                         <button type="submit" class="btn-primary mt-4 magnetic" style="width: 100%;">Enviar
                             Mensagem</button>
@@ -109,21 +146,79 @@
             </div>
         </section>
 
-        <section class="section-padding bg-blush">
+        <section class="map-section" aria-label="Localização do estúdio">
+            <div class="container reveal-fade">
+                <span class="eyebrow">Como Chegar</span>
+                <h2 class="section-title mt-2">Nossa Sede</h2>
+                <p class="desc-text mt-4" style="max-width: 600px;">Rua da Dança, 123 — Nova Iguaçu, RJ.<br>Estacionamento gratuito disponível para alunos e visitantes.</p>
+            </div>
+            <div class="map-wrap reveal-fade">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58803.01843939537!2d-43.4918657!3d-22.7560344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9be045ce23de72d%3A0x7a5b26eed06882e6!2sNova%20Igua%C3%A7u%2C%20RJ!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
+                    width="100%"
+                    height="480"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Localização do Estúdio Thaisa Vieira em Nova Iguaçu, RJ">
+                </iframe>
+            </div>
+        </section>
+
+        <section class="section-padding bg-blush" aria-label="Dúvidas frequentes">
             <div class="container grid-50-50 align-start">
                 <div class="reveal-fade">
                     <h2 class="section-title">Dúvidas Frequentes</h2>
                 </div>
                 <div class="faq-list reveal-fade">
                     <div class="faq-item">
-                        <h4>Vocês aceitam iniciantes adultos?</h4>
-                        <p class="desc-text">Sim, possuímos programas desenvolvidos especificamente para adultos que
-                            nunca tiveram contato prévio com a dança clássica, focando na base estrutural.</p>
+                        <h3>
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+                                Vocês aceitam iniciantes adultos?
+                                <svg class="faq-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                        </h3>
+                        <div id="faq-answer-1" class="faq-answer">
+                            <p class="desc-text" style="padding-bottom: 1.5rem;">Sim, possuímos programas desenvolvidos especificamente para adultos que
+                                nunca tiveram contato prévio com a dança clássica, focando na base estrutural.</p>
+                        </div>
                     </div>
                     <div class="faq-item">
-                        <h4>Como funcionam as audições para a companhia?</h4>
-                        <p class="desc-text">Ocorrem duas vezes ao ano, na primavera e no outono. É exigido nível
-                            avançado e trabalho de pontas impecável. Acompanhe nossas redes para os editais.</p>
+                        <h3>
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+                                Como funcionam as audições para a companhia?
+                                <svg class="faq-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                        </h3>
+                        <div id="faq-answer-2" class="faq-answer">
+                            <p class="desc-text" style="padding-bottom: 1.5rem;">Ocorrem duas vezes ao ano, na primavera e no outono. É exigido nível
+                                avançado e trabalho de pontas impecável. Acompanhe nossas redes para os editais.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <h3>
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+                                A partir de que idade as crianças podem começar?
+                                <svg class="faq-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                        </h3>
+                        <div id="faq-answer-3" class="faq-answer">
+                            <p class="desc-text" style="padding-bottom: 1.5rem;">O programa Baby Class recebe crianças a partir dos 3 anos de idade.
+                                As aulas são lúdicas e focadas no desenvolvimento motor, musicalidade e socialização.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <h3>
+                            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+                                Vocês oferecem aulas de reposição?
+                                <svg class="faq-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                        </h3>
+                        <div id="faq-answer-4" class="faq-answer">
+                            <p class="desc-text" style="padding-bottom: 1.5rem;">Sim, mediante agendamento prévio e disponibilidade de turma. Entre em
+                                contato com nossa equipe de concierge para verificar as opções disponíveis.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,21 +228,23 @@
     <footer id="main-footer">
         <div class="container footer-content">
             <div class="footer-brand">
-                <span class="logo display-font">Thaisa Vieira.</span>
+                <span class="logo display-font" aria-label="Thaisa Vieira">Thaisa Vieira.</span>
                 <p class="mt-2 text-muted">A Poesia do Movimento.</p>
             </div>
-            <div class="footer-links">
-                <a href="#" class="link-hover magnetic">Instagram</a>
-                <a href="#" class="link-hover magnetic">Vimeo</a>
-            </div>
+            <nav class="footer-links" aria-label="Redes sociais">
+                <a href="#" class="link-hover magnetic" aria-label="Instagram do Estúdio Thaisa Vieira">Instagram</a>
+                <a href="#" class="link-hover magnetic" aria-label="Vimeo do Estúdio Thaisa Vieira">Vimeo</a>
+                <a href="#" class="link-hover magnetic" aria-label="LinkedIn do Estúdio Thaisa Vieira">LinkedIn</a>
+            </nav>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Estúdio de Artes Thaisa Vieira. Todos os direitos reservados.</p>
+            <p>&copy; <span id="footer-year">2026</span> Estúdio de Artes Thaisa Vieira. Todos os direitos
+                reservados.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

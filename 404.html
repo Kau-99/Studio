@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada | Thaisa Vieira</title>
+    <meta name="description" content="A página que você procura não foi encontrada. Volte ao início do Estúdio Thaisa Vieira.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#D28A97">
+    <link rel="icon" type="image/svg+xml" href="imagens/favicon.png.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === 404 HERO === */
+        .error-hero {
+            height: 100vh;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 7rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 70% 30%, rgba(210, 138, 151, 0.13) 0%, transparent 55%),
+                radial-gradient(ellipse at 20% 75%, rgba(180, 100, 120, 0.08) 0%, transparent 50%),
+                linear-gradient(160deg, #1A1516 0%, #231619 40%, #2a1a1e 70%, #1f1517 100%);
+        }
+
+        /* Partículas flutuantes */
+        .error-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .error-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: var(--color-rose);
+            bottom: -4px;
+            left: var(--x);
+            opacity: 0;
+            animation: float-particle var(--dur) ease-in var(--delay) infinite;
+        }
+
+        @keyframes float-particle {
+            0%   { transform: translateY(0) translateX(0);   opacity: 0; }
+            8%   { opacity: 0.8; }
+            85%  { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(var(--drift)); opacity: 0; }
+        }
+
+        /* 404 fantasma no fundo */
+        .error-ghost {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .error-ghost-text {
+            font-family: var(--font-heading);
+            font-size: clamp(22rem, 55vw, 52rem);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(210, 138, 151, 0.055);
+            line-height: 1;
+            white-space: nowrap;
+            animation: ghost-breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes ghost-breathe {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50%      { opacity: 1;   transform: scale(1.015); }
+        }
+
+        /* Conteúdo principal */
+        .error-content {
+            position: relative;
+            z-index: 2;
+            max-width: 660px;
+            width: 100%;
+        }
+
+        /* Eyebrow teatral */
+        .error-act {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: rgba(210, 138, 151, 0.7);
+            animation: fade-up-in 0.8s var(--ease-editorial) 0.1s both;
+        }
+
+        /* Número gradiente */
+        .error-number {
+            font-family: var(--font-heading);
+            font-size: clamp(5.5rem, 16vw, 12rem);
+            line-height: 1;
+            margin: 0.2rem 0 0;
+            user-select: none;
+            background: linear-gradient(
+                135deg,
+                rgba(210, 138, 151, 1) 0%,
+                rgba(252, 250, 250, 0.55) 50%,
+                rgba(210, 138, 151, 0.75) 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fade-up-in 0.9s var(--ease-editorial) 0.25s both,
+                       number-glow 5s ease-in-out 1.5s infinite;
+        }
+
+        @keyframes number-glow {
+            0%, 100% { filter: brightness(1); }
+            50%       { filter: brightness(1.15); }
+        }
+
+        /* Ornamento SVG decorativo */
+        .error-ornament {
+            display: block;
+            margin: 1.6rem auto;
+            animation: ornament-draw 1.2s var(--ease-editorial) 0.7s both;
+        }
+
+        .error-ornament line {
+            stroke-dasharray: 55;
+            stroke-dashoffset: 55;
+            animation: dash-in 0.9s var(--ease-editorial) 0.7s forwards;
+        }
+
+        .error-ornament line:nth-child(2) {
+            animation-delay: 0.85s;
+        }
+
+        .error-ornament circle {
+            transform-origin: center;
+            transform: scale(0);
+            animation: dot-pop 0.4s var(--ease-editorial) 1s forwards;
+        }
+
+        @keyframes dash-in {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes dot-pop {
+            to { transform: scale(1); }
+        }
+
+        /* Título e descrição */
+        .error-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+            color: var(--color-alabaster);
+            font-weight: 400;
+            line-height: 1.25;
+            margin-bottom: 1.2rem;
+            animation: fade-up-in 0.8s var(--ease-editorial) 0.85s both;
+        }
+
+        .error-desc {
+            font-size: 1rem;
+            color: rgba(252, 250, 250, 0.55);
+            line-height: 1.85;
+            max-width: 440px;
+            margin: 0 auto 2.5rem;
+            animation: fade-up-in 0.8s var(--ease-editorial) 1s both;
+        }
+
+        /* Botões */
+        .error-actions {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fade-up-in 0.8s var(--ease-editorial) 1.15s both;
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            background-color: transparent;
+            color: var(--color-alabaster);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: border-color 0.4s var(--ease-editorial), color 0.4s;
+            text-decoration: none;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--color-rose);
+            color: var(--color-rose);
+        }
+
+        /* Links de navegação rápida */
+        .error-nav {
+            margin-top: 2.8rem;
+            animation: fade-up-in 0.8s var(--ease-editorial) 1.3s both;
+        }
+
+        .error-nav-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: rgba(252, 250, 250, 0.3);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .error-nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem 0.2rem;
+            list-style: none;
+        }
+
+        .error-nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .error-nav-links li + li::before {
+            content: '·';
+            color: rgba(210, 138, 151, 0.35);
+            margin-right: 0.2rem;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .error-nav-links a {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(252, 250, 250, 0.45);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.3rem 0.5rem;
+        }
+
+        .error-nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0.5rem;
+            right: 0.5rem;
+            height: 1px;
+            background: var(--color-rose);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease-editorial);
+        }
+
+        .error-nav-links a:hover {
+            color: var(--color-rose);
+        }
+
+        .error-nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Contagem regressiva */
+        .error-redirect {
+            margin-top: 2.5rem;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: rgba(252, 250, 250, 0.2);
+            animation: fade-up-in 0.8s var(--ease-editorial) 1.5s both;
+        }
+
+        #countdown {
+            color: rgba(210, 138, 151, 0.6);
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            transition: color 0.3s;
+        }
+
+        #countdown.urgent {
+            color: var(--color-rose);
+        }
+
+        /* Barra de progresso de redirecionamento */
+        .error-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--color-rose-dark), var(--color-rose));
+            width: 0%;
+            transition: width 1s linear;
+            z-index: 10;
+        }
+
+        /* Entrada com fade + slide */
+        @keyframes fade-up-in {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            .error-ghost-text,
+            .error-number,
+            .error-particle,
+            .error-ornament line,
+            .error-ornament circle {
+                animation: none !important;
+            }
+
+            .error-content > *,
+            .error-act,
+            .error-number,
+            .error-title,
+            .error-desc,
+            .error-actions,
+            .error-nav,
+            .error-redirect {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .error-ornament line {
+                stroke-dashoffset: 0 !important;
+            }
+
+            .error-ornament circle {
+                transform: scale(1) !important;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .error-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-ghost {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="luxury-theme">
+    <a class="skip-to-content" href="#main-content">Ir ao conteúdo principal</a>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="page-transition" aria-hidden="true"></div>
+
+    <header id="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo magnetic" aria-label="Thaisa Vieira — Página Inicial">Thaisa Vieira.</a>
+            <nav class="nav-desktop" aria-label="Navegação principal">
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Filosofia</a>
+                <a href="aulas.html">Programas</a>
+                <a href="professores.html">Mestres</a>
+                <a href="espetaculos.html">Espetáculos</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="header-actions">
+                <div class="lang-selector" aria-label="Seleção de idioma">
+                    <a href="#" class="active" aria-label="Português" hreflang="pt-BR">PT</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="#" aria-label="English" hreflang="en">EN</a>
+                </div>
+                <button class="menu-toggle magnetic" aria-label="Abrir menu de navegação" aria-expanded="false"
+                    aria-controls="mobile-menu">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" aria-hidden="true" focusable="false">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true"
+            aria-label="Menu de navegação" aria-hidden="true">
+            <button class="menu-close magnetic" aria-label="Fechar menu">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true" focusable="false">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <nav class="nav-mobile" aria-label="Navegação mobile">
+                <a href="index.html" class="mobile-link">Início</a>
+                <a href="sobre.html" class="mobile-link">Filosofia</a>
+                <a href="aulas.html" class="mobile-link">Programas</a>
+                <a href="professores.html" class="mobile-link">Mestres</a>
+                <a href="espetaculos.html" class="mobile-link">Espetáculos</a>
+                <a href="contato.html" class="mobile-link">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="error-hero" aria-label="Página não encontrada">
+
+            <!-- Fundo gradiente -->
+            <div class="error-bg" aria-hidden="true"></div>
+
+            <!-- Partículas (geradas por JS) -->
+            <div class="error-particles" aria-hidden="true"></div>
+
+            <!-- 404 fantasma no fundo -->
+            <div class="error-ghost" aria-hidden="true">
+                <span class="error-ghost-text">404</span>
+            </div>
+
+            <!-- Barra de progresso de redirecionamento -->
+            <div class="error-progress" id="redirect-progress" aria-hidden="true"></div>
+
+            <!-- Conteúdo -->
+            <div class="error-content">
+                <p class="error-act">Acte IV &nbsp;·&nbsp; Cena Inexistente</p>
+
+                <p class="error-number" aria-label="Erro 404">404</p>
+
+                <!-- Ornamento SVG decorativo -->
+                <svg class="error-ornament" width="130" height="10" viewBox="0 0 130 10"
+                    fill="none" aria-hidden="true">
+                    <line x1="0" y1="5" x2="57" y2="5"
+                        stroke="rgba(210,138,151,0.5)" stroke-width="0.75"/>
+                    <circle cx="65" cy="5" r="2.5"
+                        fill="rgba(210,138,151,0.7)"/>
+                    <line x1="73" y1="5" x2="130" y2="5"
+                        stroke="rgba(210,138,151,0.5)" stroke-width="0.75"/>
+                </svg>
+
+                <h1 class="error-title">O palco está vazio.</h1>
+
+                <p class="error-desc">
+                    A página que você procura não existe ou foi movida para outro endereço.
+                    Mas o espetáculo continua — explore o estúdio.
+                </p>
+
+                <div class="error-actions">
+                    <a href="index.html" class="btn-primary magnetic">Voltar ao Início</a>
+                    <a href="contato.html" class="btn-ghost magnetic">Falar Conosco</a>
+                </div>
+
+                <nav class="error-nav" aria-label="Navegação sugerida">
+                    <span class="error-nav-label">Ou explore diretamente</span>
+                    <ul class="error-nav-links">
+                        <li><a href="sobre.html">Filosofia</a></li>
+                        <li><a href="aulas.html">Programas</a></li>
+                        <li><a href="professores.html">Mestres</a></li>
+                        <li><a href="espetaculos.html">Espetáculos</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </nav>
+
+                <p class="error-redirect" aria-live="polite">
+                    Redirecionando ao início em <span id="countdown">15</span>s
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="logo display-font" aria-label="Thaisa Vieira">Thaisa Vieira.</span>
+                <p class="mt-2 text-muted">A Poesia do Movimento.</p>
+            </div>
+            <nav class="footer-links" aria-label="Redes sociais">
+                <a href="#" class="link-hover magnetic" aria-label="Instagram do Estúdio Thaisa Vieira">Instagram</a>
+                <a href="#" class="link-hover magnetic" aria-label="Vimeo do Estúdio Thaisa Vieira">Vimeo</a>
+                <a href="#" class="link-hover magnetic" aria-label="LinkedIn do Estúdio Thaisa Vieira">LinkedIn</a>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="footer-year">2026</span> Estúdio de Artes Thaisa Vieira. Todos os direitos
+                reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script>
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // Partículas flutuantes
+        if (!prefersReducedMotion) {
+            const container = document.querySelector(".error-particles");
+            if (container) {
+                for (let i = 0; i < 22; i++) {
+                    const p = document.createElement("div");
+                    p.className = "error-particle";
+                    p.style.setProperty("--x", Math.random() * 100 + "%");
+                    p.style.setProperty("--dur", (Math.random() * 10 + 7) + "s");
+                    p.style.setProperty("--delay", (Math.random() * 10) + "s");
+                    p.style.setProperty("--drift", (Math.random() * 120 - 60) + "px");
+                    container.appendChild(p);
+                }
+            }
+        }
+
+        // Contagem regressiva + barra de progresso + redirecionamento
+        const REDIRECT_URL = "index.html";
+        const TOTAL_SECONDS = 15;
+        const countdownEl = document.getElementById("countdown");
+        const progressBar = document.getElementById("redirect-progress");
+        let seconds = TOTAL_SECONDS;
+
+        // Inicia a barra de progresso após um tick para disparar a transição CSS
+        setTimeout(() => {
+            if (progressBar) progressBar.style.width = "100%";
+            if (progressBar) progressBar.style.transitionDuration = TOTAL_SECONDS + "s";
+        }, 100);
+
+        const tick = setInterval(() => {
+            seconds--;
+            if (countdownEl) {
+                countdownEl.textContent = seconds;
+                if (seconds <= 5) countdownEl.classList.add("urgent");
+            }
+            if (seconds <= 0) {
+                clearInterval(tick);
+                window.location.href = REDIRECT_URL;
+            }
+        }, 1000);
+
+        // Cancelar redirecionamento se o usuário interagir com a página
+        const cancelRedirect = () => {
+            clearInterval(tick);
+            const redirectEl = document.querySelector(".error-redirect");
+            if (redirectEl) {
+                redirectEl.textContent = "Redirecionamento cancelado.";
+                redirectEl.style.color = "rgba(252,250,250,0.2)";
+            }
+            if (progressBar) {
+                progressBar.style.transition = "none";
+                progressBar.style.opacity = "0";
+            }
+            document.removeEventListener("click", cancelRedirect);
+            document.removeEventListener("keydown", cancelRedirect);
+            document.removeEventListener("scroll", cancelRedirect);
+        };
+
+        // Qualquer interação cancela o redirect automático
+        ["click", "keydown", "scroll"].forEach((evt) =>
+            document.addEventListener(evt, cancelRedirect, { once: true, passive: true })
+        );
+    </script>
+</body>
+
+</html>
