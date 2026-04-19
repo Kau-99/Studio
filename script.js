@@ -388,7 +388,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* === 10. STATS COUNTER === */
+  /* === 10. PARTICLE FIELDS === */
+  if (!prefersReducedMotion && !isTouchDevice) {
+    document.querySelectorAll(".particle-field").forEach((container) => {
+      const count = parseInt(container.dataset.count || "20", 10);
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.setProperty("--x", Math.random() * 100 + "%");
+        p.style.setProperty("--dur", (Math.random() * 10 + 7) + "s");
+        p.style.setProperty("--delay", -(Math.random() * 14) + "s");
+        p.style.setProperty("--drift", (Math.random() * 100 - 50) + "px");
+        container.appendChild(p);
+      }
+    });
+  }
+
+  /* === 11. STATS COUNTER === */
   const statNumbers = document.querySelectorAll(".stat-number[data-target]");
   if (statNumbers.length > 0) {
     const animateCounter = (el) => {
@@ -427,7 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statNumbers.forEach((el) => counterObserver.observe(el));
   }
 
-  /* === 11. FAQ ACCORDION === */
+  /* === 12. FAQ ACCORDION === */
   const faqItems = document.querySelectorAll(".faq-item");
   faqItems.forEach((item) => {
     const btn = item.querySelector(".faq-question");

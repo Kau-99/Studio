@@ -189,6 +189,20 @@ video {
     letter-spacing: 0.35em;
     color: var(--color-rose);
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+    flex-shrink: 0;
 }
 
 .display-title {
@@ -294,15 +308,33 @@ video {
     text-transform: uppercase;
     letter-spacing: 0.2em;
     border: 1px solid var(--color-rose);
-    transition: all 0.4s var(--ease-editorial);
     text-decoration: none;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.55s var(--ease-editorial), color 0.15s;
+}
+
+/* Cortina que sobe — efeito teatral */
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-charcoal);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.55s var(--ease-editorial);
+    z-index: -1;
 }
 
 .btn-primary:hover {
-    background-color: var(--color-charcoal);
     border-color: var(--color-charcoal);
     color: var(--color-white);
+}
+
+.btn-primary:hover::after {
+    transform: scaleY(1);
 }
 
 .link-hover {
@@ -385,11 +417,29 @@ video {
     text-decoration: none;
     transition: color 0.4s;
     position: relative;
+    padding-bottom: 4px;
+}
+
+.nav-desktop a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-rose);
+    transition: width 0.45s var(--ease-editorial), left 0.45s var(--ease-editorial);
 }
 
 .nav-desktop a:hover,
 .nav-desktop a.active {
     color: var(--color-rose);
+}
+
+.nav-desktop a:hover::after,
+.nav-desktop a.active::after {
+    width: 100%;
+    left: 0;
 }
 
 .header-actions {
@@ -585,9 +635,14 @@ body.js-ready .is-revealed .reveal-fade {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(210, 138, 151, 0.15);
+    background: linear-gradient(
+        to top,
+        rgba(26, 21, 22, 0.5) 0%,
+        rgba(210, 138, 151, 0.12) 55%,
+        transparent 100%
+    );
     opacity: 0;
-    transition: opacity 0.6s var(--ease-editorial);
+    transition: opacity 0.7s var(--ease-editorial);
     z-index: 2;
     pointer-events: none;
 }
@@ -986,6 +1041,10 @@ button:disabled {
         gap: 2rem;
     }
 
+    .hero-scroll-indicator {
+        display: none;
+    }
+
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0;
@@ -1102,6 +1161,126 @@ img.img-error {
 
 .ed-img-wrap.img-failed {
     background: linear-gradient(135deg, var(--color-blush) 0%, var(--color-border) 100%);
+}
+
+/* === PARTICLE FIELD === */
+.particle-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--color-rose);
+    bottom: -4px;
+    left: var(--x);
+    opacity: 0;
+    animation: float-particle var(--dur) ease-in var(--delay) infinite;
+}
+
+@keyframes float-particle {
+    0%   { transform: translateY(0) translateX(0);                opacity: 0; }
+    8%   { opacity: 0.75; }
+    85%  { opacity: 0.2; }
+    100% { transform: translateY(-105vh) translateX(var(--drift)); opacity: 0; }
+}
+
+/* === MARQUEE === */
+.marquee-strip {
+    overflow: hidden;
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-alabaster);
+    user-select: none;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 35s linear infinite;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+.marquee-inner {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.marquee-item {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+    padding: 0 2rem;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+.marquee-sep {
+    color: var(--color-rose);
+    font-size: 0.65rem;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* === HERO SCROLL INDICATOR === */
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    right: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    z-index: 2;
+    opacity: 0;
+    animation: fade-in-delayed 1s var(--ease-editorial) 2s forwards;
+}
+
+@keyframes fade-in-delayed {
+    to { opacity: 1; }
+}
+
+.hero-scroll-label {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: rgba(252, 250, 250, 0.4);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.hero-scroll-line {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(
+        to bottom,
+        rgba(210, 138, 151, 0.7),
+        transparent
+    );
+    animation: scroll-line-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-line-pulse {
+    0%, 100% { transform: scaleY(1);   opacity: 0.6; transform-origin: top; }
+    50%       { transform: scaleY(0.6); opacity: 1;   transform-origin: top; }
 }
 
 /* === STATS COUNTER === */
@@ -1292,6 +1471,29 @@ img.img-error {
     }
 
     .ed-img-wrap::after {
+        transition: none !important;
+    }
+
+    .btn-primary::after {
+        transition: none !important;
+    }
+
+    .particle,
+    .hero-scroll-line,
+    .hero-scroll-indicator {
+        animation: none !important;
+        opacity: 1 !important;
+    }
+
+    .hero-scroll-indicator {
+        opacity: 0.5 !important;
+    }
+
+    .marquee-track {
+        animation: none !important;
+    }
+
+    .nav-desktop a::after {
         transition: none !important;
     }
 }
