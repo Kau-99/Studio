@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Marca o body como pronto para ativar animações CSS
   document.body.classList.add("js-ready");
 
-  // Ano dinâmico no footer (centralizado, sem duplicação por página)
-  const yearEl = document.getElementById("footer-year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // Ano dinâmico no footer — suporta múltiplos elementos por página
+  document.querySelectorAll("#footer-year").forEach((el) => {
+    el.textContent = new Date().getFullYear();
+  });
 
   // Fallback visual para imagens com erro de carregamento
   document.querySelectorAll("img").forEach((img) => {
@@ -63,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     animateCursor();
 
-    // Pausar animação quando aba não está visível
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         if (cursorRafId) cancelAnimationFrame(cursorRafId);
@@ -163,13 +163,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
         },
-        { root: null, rootMargin: "0px 0px -15% 0px", threshold: 0.1 }
+        { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
       );
       elementsToReveal.forEach((el) => revealObserver.observe(el));
     }
   }
 
-  // Acionar hero imediatamente no carregamento
   setTimeout(() => {
     const firstReveal = document.getElementById("hero");
     if (firstReveal) firstReveal.classList.add("is-revealed");
@@ -231,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* === 8. MOBILE MENU === */
+  /* === 8. MOBILE MENU + FOCUS TRAP === */
   const menuToggleBtn = document.querySelector(".menu-toggle");
   const menuCloseBtn = document.querySelector(".menu-close");
   const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
@@ -256,33 +255,35 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    if (menuToggleBtn) menuToggleBtn.addEventListener("click", openMenu);
-    if (menuCloseBtn) menuCloseBtn.addEventListener("click", closeMenu);
-
-    // Fechar com tecla Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && mobileMenuOverlay.classList.contains("active")) {
-        closeMenu();
-      }
-    });
-
-    // Armadilha de foco para acessibilidade (foco nunca sai do menu aberto)
-    document.addEventListener("keydown", (e) => {
-      if (!mobileMenuOverlay.classList.contains("active") || e.key !== "Tab") return;
-      const focusable = Array.from(
-        mobileMenuOverlay.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')
-      ).filter((el) => !el.closest("[hidden]"));
-      if (focusable.length === 0) return;
+    // Focus trap completo (WCAG 2.1 AA)
+    function trapFocus(element) {
+      const focusable = element.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
+      element.addEventListener("keydown", function (e) {
+        if (e.key !== "Tab") {
+          if (e.key === "Escape") closeMenu();
+          return;
+        }
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      });
+    }
+    trapFocus(mobileMenuOverlay);
+
+    if (menuToggleBtn) menuToggleBtn.addEventListener("click", openMenu);
+    if (menuCloseBtn) menuCloseBtn.addEventListener("click", closeMenu);
 
     mobileLinks.forEach((link, index) => {
       link.addEventListener("click", closeMenu);
@@ -296,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
     const isValidEmail = (email) =>
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+      /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/i.test(email.trim());
 
     const showFormFeedback = (type, message) => {
       let feedback = contactForm.querySelector(".form-feedback");
@@ -309,6 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       feedback.className = `form-feedback form-feedback--${type}`;
       feedback.textContent = message;
+      feedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
     };
 
     const removeFormFeedback = () => {
@@ -355,7 +357,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const FORMSPREE_ID = "YOUR_FORM_ID";
 
       if (FORMSPREE_ID === "YOUR_FORM_ID") {
-        // Modo demonstração enquanto o ID não for configurado
         setTimeout(() => {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
@@ -450,7 +451,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const answer = item.querySelector(".faq-answer");
     if (!btn || !answer) return;
 
-    // Inicializar como fechado
     answer.style.maxHeight = null;
     answer.style.opacity = "0";
     btn.setAttribute("aria-expanded", "false");
@@ -458,7 +458,6 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const isExpanded = btn.getAttribute("aria-expanded") === "true";
 
-      // Fechar todos os outros itens
       faqItems.forEach((other) => {
         if (other === item) return;
         const otherBtn = other.querySelector(".faq-question");
@@ -481,4 +480,43 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  /* === 13. URGENCY BADGE DINÂMICO === */
+  const badgeEl = document.querySelector(".badge-urgency[data-vagas]");
+  if (badgeEl) {
+    const vagas = parseInt(badgeEl.dataset.vagas || "3", 10);
+    badgeEl.textContent =
+      vagas <= 5
+        ? `Apenas ${vagas} vaga${vagas !== 1 ? "s" : ""} disponível${vagas !== 1 ? "is" : ""}`
+        : `${vagas} vagas disponíveis`;
+  }
+
+  /* === 14. SMOOTH SCROLL PARA ÂNCORAS INTERNAS === */
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const href = anchor.getAttribute("href");
+      if (href === "#") return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
+  /* === 15. COOKIE BANNER (LGPD) === */
+  (function () {
+    const banner = document.getElementById("cookie-banner");
+    if (!banner) return;
+    if (!localStorage.getItem("cookie_consent")) {
+      setTimeout(() => banner.setAttribute("aria-hidden", "false"), 1200);
+    }
+    document.getElementById("cookie-accept")?.addEventListener("click", () => {
+      localStorage.setItem("cookie_consent", "1");
+      banner.setAttribute("aria-hidden", "true");
+    });
+    document.getElementById("cookie-dismiss")?.addEventListener("click", () => {
+      banner.setAttribute("aria-hidden", "true");
+    });
+  })();
 });
