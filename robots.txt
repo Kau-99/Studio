@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /privacidade.html
+Disallow: /404.html
+Disallow: /humans.txt
+
+Sitemap: https://www.thaisavieira.com.br/sitemap.xml
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /

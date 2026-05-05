@@ -1,0 +1,14 @@
+/* TEAM */
+Direção Artística: Thaisa Vieira
+Site: https://www.thaisavieira.com.br
+
+/* THANKS */
+Unsplash — Fotografia: unsplash.com
+Google Fonts — Tipografia: fonts.google.com
+Lenis — Scroll suave: github.com/darkroomjs/lenis
+
+/* SITE */
+Última atualização: 2026/05/05
+Linguagens: HTML5, CSS3, JavaScript ES6+
+Padrões: WCAG 2.1 AA, Schema.org, LGPD
+Componentes: Lenis Scroll, IntersectionObserver, Web Animations API

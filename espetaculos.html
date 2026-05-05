@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Espetáculos e Eventos | Thaisa Vieira</title>
     <meta name="description"
         content="Espetáculos do Estúdio Thaisa Vieira — O Lago dos Cisnes com orquestra ao vivo de 15 a 20 de dezembro de 2026 no Theatro Municipal. Garanta seus ingressos.">
@@ -32,6 +32,13 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="canonical" href="https://www.thaisavieira.com.br/espetaculos.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://www.thaisavieira.com.br/espetaculos.html">
+    <link rel="alternate" hreflang="en" href="https://www.thaisavieira.com.br/en/">
+    <link rel="alternate" hreflang="x-default" href="https://www.thaisavieira.com.br/">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Thaisa Vieira">
+    <link rel="author" href="/humans.txt">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -77,13 +84,14 @@
                 <a href="aulas.html">Programas</a>
                 <a href="professores.html">Mestres</a>
                 <a href="espetaculos.html" class="active" aria-current="page">Espetáculos</a>
+                <a href="blog.html">Blog</a>
                 <a href="contato.html">Contato</a>
             </nav>
             <div class="header-actions">
                 <div class="lang-selector" aria-label="Seleção de idioma">
                     <a href="#" class="active" aria-label="Português" hreflang="pt-BR">PT</a>
                     <span aria-hidden="true">/</span>
-                    <a href="#" aria-label="English" hreflang="en" aria-disabled="true" tabindex="-1">EN</a>
+                    <a href="en/index.html" aria-label="English" hreflang="en">EN</a>
                 </div>
                 <button class="menu-toggle magnetic" aria-label="Abrir menu de navegação" aria-expanded="false"
                     aria-controls="mobile-menu">
@@ -110,12 +118,16 @@
                 <a href="aulas.html" class="mobile-link">Programas</a>
                 <a href="professores.html" class="mobile-link">Mestres</a>
                 <a href="espetaculos.html" class="mobile-link" aria-current="page">Espetáculos</a>
+                <a href="blog.html" class="mobile-link">Blog</a>
                 <a href="contato.html" class="mobile-link">Contato</a>
             </nav>
         </div>
     </header>
 
     <main id="main-content" class="internal-main">
+        <div class="cta-bar container reveal-fade">
+            <a href="contato.html" class="btn-primary magnetic">Agendar Aula Experimental</a>
+        </div>
         <section class="container text-center reveal-fade" aria-label="Título da página">
             <span class="eyebrow">A Consagração da Arte</span>
             <div class="reveal-wrap mt-2">
@@ -125,7 +137,7 @@
 
         <section class="section-padding" aria-label="Espetáculo em cartaz">
             <div class="container grid-50-50 align-center">
-                <div class="ed-img-wrap reveal-fade parallax-container" style="height: 800px;">
+                <div class="ed-img-wrap reveal-fade parallax-container" style="height: clamp(400px, 55vw, 800px);">
                     <img src="https://images.unsplash.com/photo-1516086821422-04bd2120072b?auto=format&fit=crop&w=1200&q=80"
                         class="parallax-img" data-speed="0.15" fetchpriority="high"
                         width="1200" height="800"

@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // === DETECÇÃO DE DISPOSITIVO E PREFERÊNCIAS ===
-  const isTouchDevice =
-    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const isTouch = window.matchMedia("(pointer: coarse)").matches;
+  const isTouchDevice = isTouch || "ontouchstart" in window || navigator.maxTouchPoints > 0;
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
@@ -186,28 +186,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* === 6. SMOOTH PARALLAX === */
   if (!prefersReducedMotion && !isTouchDevice) {
-    const parallaxElements = document.querySelectorAll(
-      ".parallax-bg, .parallax-img"
-    );
-    if (parallaxElements.length > 0) {
-      let parallaxRafId = null;
-      const smoothParallax = () => {
-        const scrolled = window.pageYOffset;
-        parallaxElements.forEach((el) => {
-          const speed = parseFloat(el.getAttribute("data-speed")) || 0.15;
-          el.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
-        });
-        parallaxRafId = null;
-      };
-      window.addEventListener(
-        "scroll",
-        () => {
-          if (!parallaxRafId) {
-            parallaxRafId = requestAnimationFrame(smoothParallax);
-          }
-        },
-        { passive: true }
+    if (isTouch) {
+      // Parallax desabilitado em touch — evita jank em mobile
+    } else {
+      const parallaxElements = document.querySelectorAll(
+        ".parallax-bg, .parallax-img"
       );
+      if (parallaxElements.length > 0) {
+        let parallaxRafId = null;
+        const smoothParallax = () => {
+          const scrolled = window.pageYOffset;
+          parallaxElements.forEach((el) => {
+            const speed = parseFloat(el.getAttribute("data-speed")) || 0.15;
+            el.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
+          });
+          parallaxRafId = null;
+        };
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!parallaxRafId) {
+              parallaxRafId = requestAnimationFrame(smoothParallax);
+            }
+          },
+          { passive: true }
+        );
+      }
     }
   }
 
@@ -320,6 +324,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      // Honeypot anti-spam: bot preencheu o campo oculto
+      if (document.getElementById("website")?.value !== "") return;
       removeFormFeedback();
 
       const nomeInput = contactForm.querySelector("#nome");
@@ -504,7 +510,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* === 15. COOKIE BANNER (LGPD) === */
+  /* === 15. SKELETON SHIMMER === */
+  document.querySelectorAll(".ed-img-wrap img").forEach((img) => {
+    const onLoad = () => img.closest(".ed-img-wrap")?.classList.add("loaded");
+    if (img.complete && img.naturalWidth > 0) {
+      onLoad();
+    } else {
+      img.addEventListener("load", onLoad, { once: true });
+    }
+  });
+
+  /* === 16. ANALYTICS === */
+  function trackEvent(action, category, label) {
+    if (typeof gtag === "undefined") return;
+    gtag("event", action, { event_category: category, event_label: label });
+  }
+
+  function trackConversion(conversionId, conversionLabel) {
+    if (typeof gtag === "undefined") return;
+    gtag("event", "conversion", { send_to: conversionId + "/" + conversionLabel });
+  }
+
+  // CTA links → contato.html
+  document.querySelectorAll('a[href="contato.html"]').forEach((btn) => {
+    btn.addEventListener("click", () =>
+      trackEvent("cta_click", "conversao", btn.textContent.trim())
+    );
+  });
+
+  // WhatsApp FAB
+  document.querySelector(".whatsapp-fab")?.addEventListener("click", () =>
+    trackEvent("whatsapp_click", "conversao", "FAB WhatsApp")
+  );
+
+  /* === 17. SWIPE NAVIGATION === */
+  if (isTouchDevice) {
+    const pages = [
+      "index.html", "sobre.html", "aulas.html",
+      "professores.html", "espetaculos.html", "blog.html", "contato.html"
+    ];
+    let touchStartX = 0;
+    document.addEventListener(
+      "touchstart",
+      (e) => { touchStartX = e.changedTouches[0].screenX; },
+      { passive: true }
+    );
+    document.addEventListener(
+      "touchend",
+      (e) => {
+        const delta = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(delta) < 80) return;
+        const path = location.pathname;
+        const current = pages.findIndex((p) => path.endsWith(p));
+        if (current === -1) return;
+        if (delta < 0 && current < pages.length - 1) {
+          location.href = pages[current + 1];
+        }
+        if (delta > 0 && current > 0) {
+          location.href = pages[current - 1];
+        }
+      },
+      { passive: true }
+    );
+  }
+
+  /* === 18. NEWSLETTER === */
+  document.getElementById("newsletterForm")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = e.target.querySelector('input[type="email"]');
+    const email = input?.value || "";
+    trackEvent("newsletter_signup", "engajamento", email);
+    e.target.innerHTML =
+      '<p style="color:var(--color-rose);font-family:var(--font-heading);font-size:1.1rem;font-style:italic;">✓ Obrigada! Você receberá novidades em breve.</p>';
+  });
+
+  /* === 19. COOKIE BANNER (LGPD) === */
   (function () {
     const banner = document.getElementById("cookie-banner");
     if (!banner) return;
@@ -514,6 +594,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("cookie-accept")?.addEventListener("click", () => {
       localStorage.setItem("cookie_consent", "1");
       banner.setAttribute("aria-hidden", "true");
+      // Ativar GA4 após consentimento
+      if (typeof gtag !== "undefined") {
+        gtag("consent", "update", { analytics_storage: "granted" });
+      }
+      trackEvent("cookie_accept", "lgpd", "Banner LGPD");
     });
     document.getElementById("cookie-dismiss")?.addEventListener("click", () => {
       banner.setAttribute("aria-hidden", "true");
