@@ -194,6 +194,11 @@ video {
     pointer-events: none;
 }
 
+.page-transition.is-loaded {
+    transform: scaleY(0);
+    pointer-events: none;
+}
+
 .page-transition.is-leaving {
     transform: scaleY(1);
     transform-origin: bottom;
@@ -259,7 +264,7 @@ h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 
 .signature-font {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: clamp(2rem, 5vw, 4.5rem);
     font-style: italic;
     color: var(--color-rose);
     opacity: 0.9;
@@ -583,19 +588,19 @@ body.internal-page #main-header .lang-selector a:hover {
 }
 
 .hero-title {
-    font-size: clamp(3rem, 10vw, 7.5vw);
+    font-size: clamp(2.4rem, 8.5vw, 7rem);
     color: var(--color-alabaster);
     line-height: 1.05;
     margin-bottom: 0;
 }
 
 .hero-subtitle {
-    font-size: clamp(1rem, 3vw, 1.25rem);
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     color: var(--color-blush);
-    margin: 2rem 0 3.5rem;
+    margin: 1.5rem 0 3rem;
     font-weight: 300;
     letter-spacing: 0.05em;
-    max-width: 650px;
+    max-width: 580px;
 }
 
 /* === ANIMATIONS ===
@@ -751,7 +756,7 @@ body.js-ready .is-revealed .reveal-fade {
 
 .card h3 {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: clamp(1.35rem, 3vw, 2.2rem);
     margin-bottom: 1rem;
     color: var(--color-charcoal);
 }
@@ -820,6 +825,20 @@ body.js-ready .is-revealed .reveal-fade {
     font-weight: 500;
 }
 
+/* === LAYOUT HELPERS (substitui inline styles) === */
+.sobre-hero-img {
+    height: 700px;
+    border-radius: 300px 300px 0 0;
+}
+
+.sobre-texto {
+    padding-left: 2rem;
+}
+
+.espetaculo-info {
+    padding-left: 2rem;
+}
+
 /* === COMPONENTS === */
 .statement-text {
     max-width: 950px;
@@ -876,7 +895,7 @@ body.js-ready .is-revealed .reveal-fade {
     justify-content: space-between;
     gap: 1rem;
     font-family: var(--font-heading);
-    font-size: 1.6rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
     font-weight: 400;
     color: var(--color-rose);
     transition: color 0.3s;
@@ -1091,6 +1110,7 @@ button:disabled {
 }
 
 /* === MEDIA QUERIES === */
+/* ─── BREAKPOINT: TABLET LANDSCAPE 992px ─────────────────────────── */
 @media (max-width: 992px) {
 
     .nav-desktop,
@@ -1112,33 +1132,61 @@ button:disabled {
     }
 
     .section-padding {
-        padding: 6rem 0;
+        padding: 5.5rem 0;
     }
 
-    .grid-50-50,
+    /* Grids — colapsa para 1 coluna, gap reduzido */
+    .grid-50-50 {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
     .grid-3-cols {
         grid-template-columns: 1fr;
-        gap: 4rem;
+        gap: 3rem;
     }
 
+    /* Imagens — alturas ajustadas para viewport */
     .ed-img-wrap {
-        height: 60vh;
-        min-height: 400px;
+        height: clamp(320px, 55vw, 560px);
+        min-height: unset;
     }
 
-    .card .ed-img-wrap,
+    .card .ed-img-wrap {
+        height: clamp(240px, 48vw, 420px);
+        min-height: unset;
+    }
+
     .prof-card .ed-img-wrap {
-        height: 50vh;
-        min-height: 380px;
+        height: clamp(260px, 50vw, 440px);
+        min-height: unset;
+        border-radius: 150px 150px 0 0;
+    }
+
+    /* Imagem de sobre.html */
+    .sobre-hero-img {
+        height: clamp(320px, 55vw, 560px);
+        border-radius: 150px 150px 0 0;
+    }
+
+    /* Padding-left inline overrides */
+    .sobre-texto,
+    .espetaculo-info {
+        padding-left: 0;
+    }
+
+    /* Form de contato */
+    .contato-form {
+        padding: 2.5rem !important;
     }
 
     .internal-main {
-        padding-top: 150px;
+        padding-top: 130px;
     }
 
     .footer-content {
         flex-direction: column;
-        gap: 3rem;
+        gap: 2.5rem;
         text-align: center;
         justify-content: center;
     }
@@ -1146,12 +1194,14 @@ button:disabled {
     .footer-links {
         justify-content: center;
         gap: 2rem;
+        flex-wrap: wrap;
     }
 
     .hero-scroll-indicator {
         display: none;
     }
 
+    /* Stats — 2x2 grid */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0;
@@ -1173,45 +1223,331 @@ button:disabled {
 
     .testimonials-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
         margin-top: 3rem;
     }
 
     .map-wrap {
-        height: 380px;
+        height: 360px;
+    }
+
+    .map-section {
+        padding: 4rem 0 0;
     }
 }
 
+/* ─── BREAKPOINT: TABLET PORTRAIT 768px ──────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Container padding intermediário */
+    .container,
+    .header-container,
+    #hero {
+        padding: 0 2rem;
+    }
+
+    .section-padding {
+        padding: 4.5rem 0;
+    }
+
+    /* Hero ajustes */
+    #hero {
+        min-height: 600px;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        margin: 1.5rem 0 2.5rem;
+    }
+
+    /* Imagens — altura mais compacta em portrait */
+    .ed-img-wrap {
+        height: clamp(260px, 50vw, 420px);
+    }
+
+    .card .ed-img-wrap {
+        height: clamp(200px, 44vw, 340px);
+    }
+
+    .prof-card .ed-img-wrap {
+        height: clamp(220px, 46vw, 360px);
+        border-radius: 100px 100px 0 0;
+    }
+
+    .sobre-hero-img {
+        height: clamp(260px, 50vw, 420px);
+        border-radius: 100px 100px 0 0;
+    }
+
+    /* internal-main ajuste intermediário */
+    .internal-main {
+        padding-top: 110px;
+    }
+
+    /* Formulário de contato — padding reduzido */
+    .contato-form {
+        padding: 2rem !important;
+    }
+
+    /* Newsletter — coluna em tablets portrait */
+    .newsletter-input-group {
+        flex-direction: column;
+        max-width: 380px;
+    }
+
+    .newsletter-input,
+    .newsletter-input-group .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Grid gaps */
+    .grid-50-50,
+    .grid-3-cols {
+        gap: 2.5rem;
+    }
+
+    /* Stats numbers — tamanho fluido */
+    .stat-number {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        padding: 2rem 1.5rem;
+    }
+
+    /* Mapa */
+    .map-wrap {
+        height: 300px;
+    }
+
+    /* Cookie banner — mais estreito em mobile */
+    .cookie-banner {
+        width: calc(100% - 2rem);
+        padding: 1.25rem 1.5rem;
+    }
+
+    /* FAQ */
+    .faq-details-list {
+        margin-top: 2rem;
+    }
+}
+
+/* ─── BREAKPOINT: MOBILE 480px ───────────────────────────────────── */
 @media (max-width: 480px) {
 
     .container,
     .header-container,
     #hero {
-        padding: 0 1.5rem;
+        padding: 0 1.25rem;
     }
 
     .section-padding {
-        padding: 5rem 0;
+        padding: 3.5rem 0;
     }
 
-    .ed-img-wrap,
-    .card .ed-img-wrap,
+    /* Hero */
+    #hero {
+        min-height: 540px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin: 1.2rem 0 2rem;
+    }
+
+    /* Imagens — alturas compactas para phones */
+    .ed-img-wrap {
+        height: clamp(200px, 55vw, 320px);
+        margin-bottom: 1.5rem;
+    }
+
+    .card .ed-img-wrap {
+        height: clamp(180px, 50vw, 280px);
+    }
+
     .prof-card .ed-img-wrap {
-        height: 55vh;
-        min-height: 350px;
+        height: clamp(200px, 52vw, 300px);
+        border-radius: 80px 80px 0 0;
     }
 
+    .sobre-hero-img {
+        height: clamp(200px, 55vw, 300px);
+        border-radius: 70px 70px 0 0;
+    }
+
+    /* Typography */
+    .signature-font {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+    }
+
+    /* Nav interna */
+    .internal-main {
+        padding-top: 90px;
+    }
+
+    /* Buttons */
     .btn-primary {
         width: 100%;
         text-align: center;
+        padding: 1.1rem 2rem;
     }
 
+    /* Formulário de contato */
+    .contato-form {
+        padding: 1.5rem !important;
+        border-radius: 4px !important;
+    }
+
+    /* Grid gaps mínimos */
+    .grid-50-50,
+    .grid-3-cols {
+        gap: 2rem;
+    }
+
+    /* Stats */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .stat-item {
+        padding: 2rem 0.75rem;
+    }
+
+    .stat-number {
+        font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .testimonial-quote {
+        font-size: 1rem;
+    }
+
+    /* Newsletter */
+    .newsletter-input-group {
+        flex-direction: column;
+    }
+
+    .newsletter-input,
+    .newsletter-input-group .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Mapa */
     .map-wrap {
-        height: 300px;
+        height: 260px;
+    }
+
+    /* Mobile menu — close button ajuste */
+    .menu-close {
+        top: 1.25rem;
+        right: 1.25rem;
+    }
+
+    /* Badge urgência */
+    .badge-urgency {
+        font-size: 0.65rem;
+        padding: 0.4rem 1rem;
+    }
+
+    /* FAQ */
+    .faq-details-list {
+        margin-top: 1.5rem;
+    }
+
+    details.faq-item summary.faq-question {
+        font-size: 0.95rem;
+    }
+
+    /* CTA bar */
+    .cta-bar {
+        padding: 1rem 0 0;
+    }
+
+    .cta-bar .btn-primary {
+        font-size: 0.78rem;
+        padding: 1rem 2rem;
+    }
+
+    /* Blog card time */
+    .card time {
+        font-size: 0.75rem;
+    }
+
+    /* Footer */
+    .footer-bottom {
+        font-size: 0.78rem;
+    }
+}
+
+/* ─── BREAKPOINT: MICRO — PHONES PEQUENOS 375px ──────────────────── */
+@media (max-width: 375px) {
+
+    .container,
+    .header-container,
+    #hero {
+        padding: 0 1rem;
+    }
+
+    .section-padding {
+        padding: 3rem 0;
+    }
+
+    #hero {
+        min-height: 500px;
+    }
+
+    .internal-main {
+        padding-top: 80px;
+    }
+
+    .ed-img-wrap {
+        height: clamp(180px, 55vw, 260px);
+    }
+
+    .card .ed-img-wrap {
+        height: clamp(160px, 48vw, 220px);
+    }
+
+    .prof-card .ed-img-wrap {
+        height: clamp(180px, 50vw, 240px);
+        border-radius: 60px 60px 0 0;
+    }
+
+    .stat-number {
+        font-size: clamp(2rem, 9vw, 2.8rem);
+    }
+
+    .stat-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.15em;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-mobile .mobile-link {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .cookie-banner {
+        padding: 1rem 1.25rem;
+    }
+
+    .grid-50-50,
+    .grid-3-cols {
+        gap: 1.5rem;
     }
 }
 
@@ -1848,15 +2184,11 @@ details.faq-item summary.faq-question:hover {
 
 /* === MOBILE PARALLAX DISABLE === */
 @media (max-width: 768px) {
-    .parallax-container {
-        height: clamp(300px, 70vw, 500px) !important;
-    }
-
     .parallax-img,
     .parallax-bg {
         transform: none !important;
-        top: 0;
-        height: 100%;
+        top: 0 !important;
+        height: 100% !important;
     }
 }
 

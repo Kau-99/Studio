@@ -4,10 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Marca o body como pronto para ativar animações CSS
   document.body.classList.add("js-ready");
 
-  // Ano dinâmico no footer — suporta múltiplos elementos por página
-  document.querySelectorAll("#footer-year").forEach((el) => {
-    el.textContent = new Date().getFullYear();
-  });
+  // Ano dinâmico no footer
+  const yearEl = document.getElementById("footer-year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Fallback visual para imagens com erro de carregamento
   document.querySelectorAll("img").forEach((img) => {
@@ -561,7 +560,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const delta = e.changedTouches[0].screenX - touchStartX;
         if (Math.abs(delta) < 80) return;
         const path = location.pathname;
-        const current = pages.findIndex((p) => path.endsWith(p));
+        const normPath = path.endsWith("/") ? path + "index.html" : path;
+        const current = pages.findIndex((p) => normPath.endsWith(p));
         if (current === -1) return;
         if (delta < 0 && current < pages.length - 1) {
           location.href = pages[current + 1];
