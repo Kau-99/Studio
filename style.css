@@ -549,6 +549,7 @@ body.internal-page #main-header .lang-selector a:hover {
 /* === HERO & VIDEO === */
 #hero {
     height: 100vh;
+    height: 100svh;
     min-height: 700px;
     position: relative;
     display: flex;
@@ -585,10 +586,11 @@ body.internal-page #main-header .lang-selector a:hover {
     position: relative;
     z-index: 2;
     max-width: 1000px;
+    width: 100%;
 }
 
 .hero-title {
-    font-size: clamp(2.4rem, 8.5vw, 7rem);
+    font-size: clamp(2.6rem, 8.5vw, 7rem);
     color: var(--color-alabaster);
     line-height: 1.05;
     margin-bottom: 0;
@@ -611,6 +613,7 @@ body.internal-page #main-header .lang-selector a:hover {
     overflow: hidden;
     display: inline-block;
     vertical-align: top;
+    max-width: 100%;
 }
 
 /* Animações ativadas apenas quando body.js-ready existe (adicionado pelo JS) */
@@ -1033,6 +1036,7 @@ body.js-ready .is-revealed .reveal-fade {
     left: 0;
     width: 100%;
     height: 100vh;
+    height: 100svh;
     background-color: var(--color-blush);
     z-index: 9995;
     display: flex;
@@ -1258,6 +1262,7 @@ button:disabled {
     .hero-subtitle {
         font-size: clamp(0.9rem, 2.5vw, 1.1rem);
         margin: 1.5rem 0 2.5rem;
+        max-width: 100%;
     }
 
     /* Imagens — altura mais compacta em portrait */
@@ -1501,6 +1506,15 @@ button:disabled {
 
     #hero {
         min-height: 500px;
+    }
+
+    /* Títulos de seção: reduz levemente para evitar quebras estranhas em telas minúsculas */
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .display-title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
     }
 
     .internal-main {
